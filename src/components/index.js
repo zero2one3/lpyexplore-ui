@@ -1,7 +1,10 @@
 import lp_button from './lp_button/lp_button'
+import lp_filp from "./lp_filp/lp_filp";
+
 
 const components = [
     lp_button,
+    lp_filp
 ]
 
 const install = function (Vue) {
