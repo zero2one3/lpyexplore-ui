@@ -2,10 +2,10 @@
   <div id="app">
     <lp_button style="margin-bottom: 10px"></lp_button>
 
-    <lp_filp>
-      <div slot="front">哈哈哈哈</div>
-      <div slot="back">嘿嘿嘿嘿</div>
-    </lp_filp>
+    <lp_filp style="margin-bottom: 10px"></lp_filp>
+
+    <lp_sliding></lp_sliding>
+
   </div>
 </template>
 

@@ -1,10 +1,10 @@
 <template>
     <div class="card">
-        <div class="front slid" :class="[category? category: '']">
+        <div class="front slid" :class="[fontBg? fontBg: '']">
             <slot name="front">正面默认内容</slot>
         </div>
 
-        <div class="back slid"  :class="[category? category: '']">
+        <div class="back slid"  :class="[backBg? backBg: '']">
             <slot name="back">背面默认内容</slot>
         </div>
     </div>
@@ -14,7 +14,11 @@
     export default {
         name: "lp_filp",
         props: {
-            category: {
+            fontBg: {
+                type: String,
+                default: 'pink'
+            },
+            backBg: {
                 type: String,
                 default: 'pink'
             }
