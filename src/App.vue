@@ -4,7 +4,11 @@
 
     <lp_filp style="margin-bottom: 10px"></lp_filp>
 
-    <lp_sliding></lp_sliding>
+    <lp_sliding style="margin-bottom: 10px"></lp_sliding>
+
+    <lp_accordion style="margin-bottom: 10px">
+
+    </lp_accordion>
 
   </div>
 </template>
