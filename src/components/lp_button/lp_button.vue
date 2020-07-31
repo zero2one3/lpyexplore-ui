@@ -1,9 +1,11 @@
 <template>
 
     <button class="btn"
+            :class="[size, type, {isRound:round},disabled? 'disabled':'']"
             @mousedown="btnDown"
-            @mouseup="btnUp">
-        lpUi按钮
+            @mouseup="btnUp"
+    >
+        <slot>lpUi按钮</slot>
     </button>
 
 </template>
@@ -11,6 +13,24 @@
 <script>
     export default {
         name: "lp_button",
+        props: {
+            size: {
+                type: String,
+                default: 'middle'
+            },
+            type: {
+                type: String
+            },
+            disabled: {
+                type: Boolean,
+                default: false
+            },
+            round: {
+                type: Boolean,
+                default: false
+            },
+
+        },
         data() {
             return {
                 type_list: ['primary', 'success', 'danger', 'warning'],
@@ -19,6 +39,7 @@
             }
         },
         methods: {
+            //鼠标按下
             btnDown() {
                 let btn = document.getElementsByClassName('btn')[0]
                 let btn_class = btn.className
@@ -36,6 +57,7 @@
                 }
 
             },
+            //鼠标松开
             btnUp() {
                 let btn = document.getElementsByClassName('btn')[0]
                 let btn_class = btn.className
@@ -45,8 +67,25 @@
                 } else {
                     btn.className = btn_class.replace(new RegExp("(\\s|^)" + 'default-click' + "(\\s|$)"), '')
                 }
+            },
+            //判断按钮是否禁用
+            isDisabled() {
+                let btn = document.querySelector('.btn')
+                if(this.disabled) {
+                    btn.disabled = 'disabled'
+                }
+                else {
+                    btn.removeAttribute('disabled')
+                }
             }
         },
+        mounted() {
+            this.isDisabled()
+
+        },
+        updated() {
+            this.isDisabled()
+        }
 
 
     }
@@ -54,17 +93,38 @@
 
 <style scoped>
     button{
-        height: 40px;
-        width: 100px;
         border: 1px solid #e1e1e1;
         background: white;
         border-radius: 5px;
-        padding: 10px 0;
+        padding: 0 10px;
         outline: none;
         cursor: pointer;
     }
+    button.disabled{
+        cursor: not-allowed;
+        opacity: .6;
+        filter:alpha(opacity=60)
+    }
+    button.isRound{
+        border-radius: 50px;
+    }
+    button.middle{
+        height: 40px;
+        width: 100px;
+    }
+    button.big{
+        height: 50px;
+        width: 120px;
+        font-size: 18px;
+    }
+    button.small{
+        height: 30px;
+        width: 80px;
+        font-size: 14px;
+        line-height: 30px;
+    }
     button:hover{
-        background: #FFF5EE;
+        background: #eee;
         color: 	#00BFFF;
     }
     button.default-click{

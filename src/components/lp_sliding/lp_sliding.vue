@@ -1,13 +1,13 @@
 <template>
-    <div class="lp_sliding_container">
+    <div class="lp_sliding_container" :style="{'width': width, 'height':height, 'fontSize': fontSize}">
 
-        <div class="lp_sliding_bg" :style="bg_width">{{ this.isFull? bg_content: '' }}</div>
+        <div class="lp_sliding_bg" :style="bg_width">{{ isFull? bg_content: '' }}</div>
 
         <div class="lp_sliding_front">{{ front_content }}</div>
 
         <div class="lp_sliding_block"
              @mousedown="dragStart"
-             :style="[move_left, (this.isSliding || this.isFull)? block_bg_style: '']">
+             :style="[move_left, (isSliding || isFull)? block_bg_style: '']">
             <slot> >> </slot>
         </div>
 
@@ -25,6 +25,18 @@
             bg_content: {
                 type: String,
                 default: '验证成功'
+            },
+            width: {
+                type: String,
+                default: '600px'
+            },
+            height: {
+                type: String,
+                default: '50px'
+            },
+            fontSize: {
+                type: String,
+                default: '16px'
             }
         },
         data() {
@@ -60,16 +72,19 @@
             //设置元素初始尺寸
             let bg_width_init = this.sliding_width + 'px'
             this.bg_width.width = bg_width_init
+
             //处理鼠标移入滑块的事件
             sliding.onmouseenter = function() {
                 if(!this.style.transition){
                     this.style.transition = 'background 200ms ease, color 200ms ease'
                 }
             }
+
             //处理滑块的滑动事件
             window.onmousemove =  (e) => {
                 if(this.isSliding === true) {
                     this.isFull = false
+                    this.$emit('isFull', this.isFull)
                     let moveX = e.screenX
                     let now_left = this.slidingX + moveX - this.startX
                     if(now_left <= 0) {
@@ -91,6 +106,7 @@
                         this.startX = differ + 0.5 * this.sliding_width
                         this.bg_width.width = this.box_width + 'px'
                         this.isFull = true
+                        this.$emit('isFull', this.isFull)
                     }
                 }
             }
@@ -108,8 +124,8 @@
                             bg.style.transition = ''
                         }, 500)
                     }
-                    this.isSliding = false
                 }
+                this.isSliding = false
             }
         }
     }
@@ -124,7 +140,7 @@
     .lp_sliding_block{
         position: absolute;
         height: 100%;
-        width: 50px;
+        width: 9%;
         z-index: 10;
         cursor: pointer;
         background: white;
