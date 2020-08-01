@@ -1,19 +1,24 @@
 <template>
-    <div class="ac_container" :style="{'width': width}">
-        <div v-for="(item, index) in title_list"
-             :key="index" class="each_box"
+    <div class="ac_container"
+         :style="{'width': width}" :class="[{'ac_container_round': round == 1}]">
+        <div v-for="(item, index) in content"
+             :key="index"
+             class="each_box"
              :style="{'width': width}">
 
-            <div class="ac_title" :style="{'fontSize': TfontSize}">
-                <div>{{item.title}}</div>
+            <div class="ac_title" :style="{'height': titleHeight, 'lineHeight': titleHeight, 'background': titleBg}">
+                <div :style="{'fontSize': TfontSize}" class="title">{{item.title}}</div>
+                <div class="icon" v-show="current_title != index && hasIcon == 1">&#9656;</div>
+                <div class="icon" v-show="current_title == index && hasIcon == 1">&#9662;</div>
             </div>
 
             <ul class="ac_plate"
                 :style="{'display': current_title == index?'inline-block':'none', 'fontSize': CfontSize}">
                 <li v-for="(each_li, i) in item.content_list"
                     :key="i"
-                    :style="{'marginTop':i==0?'':'-1px'}">
-                    <div>{{each_li}}</div>
+                    :style="{'marginTop':i==0?'':'-1px', 'height': liHeight, 'lineHeight': liHeight}"
+                    :class="[{'bottom_round': round == 1 && index == content.length - 1 && i == item.content_list.length - 1}]">
+                    <a>{{each_li}}</a>
                 </li>
             </ul>
 
@@ -30,11 +35,15 @@
             }
         },
         props: {
-            title_list: {
+            content: {
                 type: Array,
                 default: function () {
                     return [
-                        {title: '请输入标题信息1', content_list: ['默认内容1', '默认内容2', '默认内容3']},
+                        {
+                            title: '请输入标题信息1',
+                            content_list: ['默认内容1', '默认内容2', '默认内容3'],
+                            links:['http://www.baidu.com','http://www.baidu.com','http://www.baidu.com']
+                        },
                         {title: '请输入标题信息2', content_list: ['默认内容4', '默认内容5', '默认内容6']}
                     ]
                 }
@@ -58,13 +67,41 @@
             CfontSize: {
                 type: String,
                 default: '16px'
+            },
+            hasIcon: {
+                type: String,
+                default: '0'
+            },
+            round: {
+                type: String,
+                default: '0'
+            },
+            titleBg: {
+                type: String,
+                default: '#ebebeb'
             }
         },
         mounted() {
-            let ac_title = document.getElementsByClassName('ac_title')
+            //绑定标题的点击事件
+            let ac_title = document.querySelectorAll('.ac_title')
             for(let i=0; i< ac_title.length; i++) {
                 ac_title[i].onclick = () => {
                     this.current_title = i
+                }
+            }
+
+            //给a标签附上链接
+            let ac_plate = document.querySelectorAll('.ac_plate')
+            for(var i=0; i < ac_plate.length; i++) {
+                let li_list = ac_plate[i].querySelectorAll('li')
+                for(var n=0; n < li_list.length; n++) {
+                    if(this.content[i].links && this.content[i].links.length > n) {
+                        li_list[n].children[0].href = this.content[i].links[n]
+                    }
+                    else {
+                        li_list[n].children[0].href = '#'
+                    }
+
                 }
             }
         },
@@ -74,25 +111,38 @@
 <style scoped>
     .ac_container{
         line-height:0;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+    }
+    .ac_container_round{
+        border-radius: 10px;
         overflow: hidden;
+    }
+    .bottom_round{
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
     .ac_container, .each_box{
         display: inline-block;
         width: 300px;
     }
     .ac_title{
-        background: #ebebeb;
         cursor: pointer;
         height: 50px;
-        text-indent: 25px;
         line-height: 50px;
+        border-bottom: 1px solid #dcd0d0;
+        box-sizing: border-box;
     }
-    .ac_title div{
+    .ac_title .title{
+        text-indent: 25px;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        width: 90%;
+        float: left;
+    }
+    .ac_title .icon{
+        width: 10%;
+        float: left;
+        text-align: center;
     }
     .ac_plate{
         list-style: none;
@@ -108,14 +158,16 @@
         border: 1px solid #ebebeb;
         box-sizing: border-box;
         cursor: pointer;
-
     }
-    .ac_plate li:hover{
+    .ac_plate li:hover a{
         color: #6495ED;
     }
-    .ac_plate li div{
+    .ac_plate li a{
+        display: block;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        text-decoration: none;
+        color: #666;
     }
 </style>
