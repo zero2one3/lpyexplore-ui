@@ -27,7 +27,8 @@
                   width="300px"
                   titleHeight="50px"
                   hasIcon="1"
-                  round="1" titleBg="lightgreen">
+                  round="1"
+                  titleBg="lightgreen">
 
     </lp_accordion>
 
