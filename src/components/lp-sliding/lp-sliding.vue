@@ -16,7 +16,7 @@
 
 <script>
     export default {
-        name: "lp_sliding",
+        name: "lp-sliding",
         props: {
             front_content: {
                 type: String,

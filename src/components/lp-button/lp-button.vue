@@ -12,7 +12,7 @@
 
 <script>
     export default {
-        name: "lp_button",
+        name: "lp-button",
         props: {
             size: {
                 type: String,

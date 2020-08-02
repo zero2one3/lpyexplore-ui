@@ -1,4 +1,4 @@
-# lp_accordion 组件  √
+# lp-accordion 组件  √
 
 属性参数     | 可选值
 -------- | ----- 

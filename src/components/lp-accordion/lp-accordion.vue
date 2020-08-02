@@ -28,7 +28,7 @@
 
 <script>
     export default {
-        name: "lp_accordion",
+        name: "lp-accordion",
         data() {
             return {
                 current_title: 0

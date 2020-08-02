@@ -12,7 +12,7 @@
 
 <script>
     export default {
-        name: "lp_filp",
+        name: "lp-filp",
         props: {
             //卡片宽度
             width: {
