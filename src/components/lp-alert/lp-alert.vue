@@ -87,6 +87,7 @@
         top: 0;
         transition: all 500ms ease;
         opacity: 0;
+        filter:alpha(opacity=0);
         transform: translate(-50%, 0);
     }
     .enter{
@@ -94,12 +95,14 @@
     }
     .show{
         opacity: 1;
+        filter:alpha(opacity=100);
     }
     .leave{
         top: 0;
     }
     .hide{
         opacity: 0;
+        filter:alpha(opacity=0);
     }
     .content{
         height: 100%;

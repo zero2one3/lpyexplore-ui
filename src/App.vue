@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <lp-button type="danger" size="middle"
+    <lp-button type="danger"
+               size="middle"
                 @click.native="btnClick"
                :disabled="disabled">
         提交
@@ -33,6 +34,12 @@
     </lp-accordion>
 
     <button @click="alertShow">出现弹框</button>
+
+    <lp-switch style="margin-top: 30px"
+               :disabled="false"
+               :open="false">
+
+    </lp-switch>
   </div>
 </template>
 
@@ -76,7 +83,8 @@
             },
             alertShow() {
                 this.$alert({
-                  type: 'success'
+                  type: 'success',
+                  content: '恭喜你，注册成功'
                 })
             }
 
