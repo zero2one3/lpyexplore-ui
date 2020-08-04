@@ -35,13 +35,13 @@
             return {
                 type_list: ['primary', 'success', 'danger', 'warning'],
                 obj_list: ['primary-click', 'success-click', 'danger-click', 'warning-click'],
-                current_type: ''
+                current_type: '',
             }
         },
         methods: {
             //鼠标按下
             btnDown() {
-                let btn = document.getElementsByClassName('btn')[0]
+                let btn = this.$el
                 let btn_class = btn.className
                 let class_name = btn_class.split(' ')
                 class_name.forEach(value => {
@@ -59,7 +59,7 @@
             },
             //鼠标松开
             btnUp() {
-                let btn = document.getElementsByClassName('btn')[0]
+                let btn = this.$el
                 let btn_class = btn.className
                 if (this.current_type !== '') {
                     let index = this.type_list.indexOf(this.current_type)
@@ -70,7 +70,7 @@
             },
             //判断按钮是否禁用
             isDisabled() {
-                let btn = document.querySelector('.btn')
+                let btn = this.$el
                 if(this.disabled) {
                     btn.disabled = 'disabled'
                 }
@@ -110,39 +110,39 @@
     }
     button.middle{
         height: 40px;
-        width: 100px;
+        width: 80px;
     }
     button.big{
         height: 50px;
-        width: 120px;
+        width: 90px;
         font-size: 18px;
     }
     button.small{
         height: 30px;
-        width: 80px;
+        width: 60px;
         font-size: 14px;
         line-height: 30px;
     }
     button:hover{
-        background: #eee;
+        background: #e8f1ff;
         color: 	#00BFFF;
     }
     button.default-click{
         border: 1px solid #00BFFF;
     }
     button.primary{
-        background: #00BFFF;
+        background: #0c94de;
         color: white;
     }
     button.primary:hover{
-        background: #6495ED;
+        background: #0e9fef;
 
     }
     button.primary-click{
-        background: #4169E1 !important;
+        background: #0b8cd2 !important;
     }
     button.success{
-        background: #32CD32;
+        background: #29aa29;
         color: white;
     }
     button.success:hover{
@@ -150,7 +150,7 @@
 
     }
     button.success-click{
-        background: #32CD32 !important;
+        background: #1ba71b !important;
     }
     button.danger{
         background: #FF3333;
@@ -163,13 +163,13 @@
         background: #FF3333 !important;
     }
     button.warning{
-        background: #FFD700;
+        background: #f39a34;
         color: white;
     }
     button.warning:hover{
-        background: #EEEE00;
+        background: #fca74b;
     }
     button.warning-click{
-        background: #ffd700 !important;
+        background: #d78c30 !important;
     }
 </style>

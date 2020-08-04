@@ -140,7 +140,7 @@
     .lp_sliding_block{
         position: absolute;
         height: 100%;
-        width: 9%;
+        width: 11%;
         z-index: 10;
         cursor: pointer;
         background: white;

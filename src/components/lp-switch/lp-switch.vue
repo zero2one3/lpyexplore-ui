@@ -37,29 +37,35 @@
             disabled: {
                 type: Boolean,
                 default: false
+            },
+            delay: {
+                type: Boolean,
+                default: false
             }
         },
         methods: {
             switchClick() {
                 if(this.disabled == true) return;
                 if(this.isOpen) {
-                    this.left2right = false
-                    this.position = 'center'
+                    if(this.delay) {
+                        this.left2right = false
+                        this.position = 'center'
+                    }
                     setTimeout(() => {
                         this.position = 'left'
                         this.isOpen = false
                     }, 100)
                 }
                 else {
-                    this.left2right = true
-                    this.position = 'center'
+                    if(this.delay) {
+                        this.left2right = true
+                        this.position = 'center'
+                    }
                     setTimeout(() => {
                         this.position = 'right'
                         this.isOpen = true
                     },100)
                 }
-
-
             }
         }
     }
@@ -67,7 +73,7 @@
 
 <style scoped>
     .switch_box{
-        width: 64px;
+        width: 65px;
         height: 30px;
         border-radius: 20px;
         cursor: pointer;
@@ -83,9 +89,9 @@
     }
     .block{
         height: 26px;
-        width: 30px;
+        width: 26px;
         background: #f5f1f1;
-        transition: all 800ms ease;
+        transition: all 1s ease;
         position: absolute;
     }
     .on_left{
@@ -93,15 +99,15 @@
         left: 2px;
     }
     .on_center{
-        width: 40px;
+        width: 35px;
         transition: all 100ms ease;
         border-radius: 20px;
     }
     .on_center_left{
-        left: 12px;
+        left: 15px;
     }
     .on_center_right{
-        right: 12px;
+        right: 15px;
     }
     .on_right{
         border-radius: 100%;

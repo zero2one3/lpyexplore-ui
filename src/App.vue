@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <lp-button type="danger"
+
+    <lp-button type=""
                size="middle"
                 @click.native="btnClick"
                :disabled="disabled">
@@ -37,9 +38,27 @@
 
     <lp-switch style="margin-top: 30px"
                :disabled="false"
-               :open="false">
+               :open="false"
+               :delay="true">
 
     </lp-switch>
+
+    <button @click="confirmShow">出现确认弹框</button>
+
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
+
   </div>
 </template>
 
@@ -86,14 +105,20 @@
                   type: 'success',
                   content: '恭喜你，注册成功'
                 })
-            }
+            },
+            confirmShow() {
+                this.$confirm()
+                .then(() => {
+                  console.log('成功')
+                })
+                .catch(() => {
+                  console.log('失败')
+                })
+            },
 
         }
     }
 </script>
 <style>
-  #app{
-    height: 300px;
-  }
 
 </style>

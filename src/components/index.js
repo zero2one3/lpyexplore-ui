@@ -4,12 +4,14 @@ import lp_sliding from "./lp-sliding/lp-sliding";
 import lp_accordion from "./lp-accordion/lp-accordion";
 import lp_switch from "./lp-switch/lp-switch"
 
+
 const components = [
     lp_button,
     lp_filp,
     lp_sliding,
     lp_accordion,
-    lp_switch
+    lp_switch,
+
 ]
 
 const install = function (Vue) {

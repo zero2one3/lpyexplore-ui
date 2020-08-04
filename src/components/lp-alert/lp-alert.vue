@@ -52,6 +52,7 @@
             }
         },
         mounted() {
+
             setTimeout(() => {
                 this.isShow = true
                 this.isEnter = true
@@ -72,7 +73,6 @@
                 }
             },1000)
 
-
         }
     }
 </script>
@@ -82,12 +82,13 @@
         width: 350px;
         height: 50px;
         border-radius: 8px;
-        position: absolute;
+        position: fixed;
         left: 50%;
         top: 0;
         transition: all 500ms ease;
         opacity: 0;
         filter:alpha(opacity=0);
+        z-index: 1000;
         transform: translate(-50%, 0);
     }
     .enter{
