@@ -1,4 +1,4 @@
-# lp-dialog 组件  ×
+# lp-dialog 组件  √
 
 
 属性参数     | 可选值
