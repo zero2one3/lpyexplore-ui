@@ -59,7 +59,12 @@
     <div>1</div>
     <div>1</div>
 
-    <lp-rate></lp-rate>
+    <lp-rate textType="grade"
+             :rate="3"
+             :disabled="isDisabled"
+             @rateChange="change">
+
+    </lp-rate>
 
   </div>
 </template>
@@ -79,6 +84,7 @@
                   {title: '请输入标题信息4', content_list: ['默认内容8', '默认内容8', '默认内容8']},
                   {title: '请输入标题信息5', content_list: ['默认内容4', '默认内容4', '默认内容4', '默认内容4', '默认内容4']}
                 ],
+                isDisabled: false
 
             }
         },
@@ -117,6 +123,13 @@
                   console.log('失败')
                 })
             },
+            change() {
+              this.isDisabled = true
+              this.$alert({
+                type: 'success',
+                content: '评论成功',
+              })
+            }
 
         }
     }

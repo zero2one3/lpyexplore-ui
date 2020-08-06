@@ -7,14 +7,29 @@
                  @mouseout="mouseout"
                  @click="starClick">
 
-                <span v-for="(item, index) in number"
+                <span v-for="(item, index) in 5"
                       :key="index"
-                      :class="['star' + index, {'active': index - 1 &lt; currentStar}]">
+                      :class="[
+                          'star' + index,
+                          {'active': index - 1 &lt; currentStar},
+                          {'star': !disabled}
+                       ]">
+
                     {{ index - 1 &lt; currentStar ? '&#9733;': '&#9734;' }}
                 </span>
             </div>
 
-            <div class="txt">满意</div>
+            <div class="txt">
+
+                <span v-if="textType == 'number'">
+                    {{ currentStar != -1? number[currentStar]: '暂未评论' }}
+                </span>
+
+                <span v-if="textType == 'grade'">
+                    {{ currentStar != -1? grade[currentStar]: '暂未评论' }}
+                </span>
+
+            </div>
 
         </div>
 
@@ -26,34 +41,48 @@
     export default {
         name: "lp-rate",
         props: {
-            number: {
+            rate: {
                 type: Number,
-                default: 5
+                default: 0
             },
-
+            textType: {
+                type: String,
+                default: ''
+            },
+            disabled: {
+                type: Boolean,
+                default: false
+            }
         },
         data() {
             return {
-                currentStar: -1
+                currentStar: this.rate - 1,
+                temporary: this.currentStar,
+                number: ['1.0', '2.0', '3.0', '4.0', '5.0'],
+                grade: ['较差', '一般', '中等', '较好', '非常好']
             }
         },
         methods: {
             mouseover(event) {
+                this.temporary = this.currentStar
                 let element = event.toElement
                 if(element.nodeName != 'SPAN') return;
                 this.currentStar = Number(element.className.match(/star(\d)/)[1])
             },
             mouseout() {
-
+                this.currentStar = this.temporary
             },
-            starClick() {
-
+            starClick(event) {
+                let element = event.toElement
+                if(element.nodeName != 'SPAN') return;
+                this.temporary = Number(element.className.match(/star(\d)/)[1])
+                this.$emit('rateChange', this.temporary)
             }
         },
-        mounted() {
-
-
-
+        updated() {
+            if(this.disabled) {
+                this.$destroy(true)
+            }
         }
     }
 </script>
@@ -84,19 +113,25 @@
         color: #bfb5b5;
     }
     .stars span{
-        cursor: pointer;
-        margin-left: 5px;
+        cursor: default;
+        padding-left: 2px;
+        padding-right: 3px;
+        user-select: none;
     }
-    .stars span:hover{
-        transform: scaleX(1.1);
+    .stars span.star:hover{
+        cursor: pointer;
+        transform: scale(1.2, 1.2);
+        font-weight: 600;
     }
     span.active{
         color: #e5bb48;
     }
     .txt{
         font-size: 15px;
-        color: #524d4d;
-        margin-left: 5px;
+        margin-left: 10px;
+        width: 70px;
     }
-
+    .txt span{
+        color: #524d4d;
+    }
 </style>
