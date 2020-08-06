@@ -59,6 +59,8 @@
     <div>1</div>
     <div>1</div>
 
+    <lp-rate></lp-rate>
+
   </div>
 </template>
 
