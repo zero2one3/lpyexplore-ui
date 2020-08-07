@@ -66,6 +66,8 @@
 
     </lp-rate>
 
+    <button @click="loadingClick">正在加载</button>
+
   </div>
 </template>
 
@@ -129,6 +131,9 @@
                 type: 'success',
                 content: '评论成功',
               })
+            },
+            loadingClick() {
+              this.$loading()
             }
 
         }
