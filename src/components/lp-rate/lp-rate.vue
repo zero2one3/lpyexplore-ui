@@ -57,25 +57,23 @@
         data() {
             return {
                 currentStar: this.rate - 1,
-                temporary: this.currentStar,
                 number: ['1.0', '2.0', '3.0', '4.0', '5.0'],
                 grade: ['较差', '一般', '中等', '较好', '非常好']
             }
         },
         methods: {
             mouseover(event) {
-                this.temporary = this.currentStar
                 let element = event.toElement
                 if(element.nodeName != 'SPAN') return;
                 this.currentStar = Number(element.className.match(/star(\d)/)[1])
             },
             mouseout() {
-                this.currentStar = this.temporary
+                this.currentStar = this.rate - 1
             },
             starClick(event) {
                 let element = event.toElement
                 if(element.nodeName != 'SPAN') return;
-                this.temporary = Number(element.className.match(/star(\d)/)[1])
+                this.currentStar = Number(element.className.match(/star(\d)/)[1])
                 this.$emit('rateChange', this.temporary)
             }
         },
