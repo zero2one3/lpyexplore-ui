@@ -8,8 +8,10 @@
 
             <div class="ac_title" :style="{'height': titleHeight, 'lineHeight': titleHeight, 'background': titleBg}">
                 <div :style="{'fontSize': TfontSize}" class="title">{{item.title}}</div>
-                <div class="icon" v-show="current_title != index && hasIcon == 1">&#9656;</div>
-                <div class="icon" v-show="current_title == index && hasIcon == 1">&#9662;</div>
+                <div class="icon" v-if="hasIcon == 1"
+                     :style="{'transform': current_title == index? 'rotate(90deg)': ''}">
+                    &#9654;
+                </div>
             </div>
 
             <ul class="ac_plate"
@@ -143,6 +145,7 @@
         width: 10%;
         float: left;
         text-align: center;
+        transition: all 500ms ease;
     }
     .ac_plate{
         list-style: none;
