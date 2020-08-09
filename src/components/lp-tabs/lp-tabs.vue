@@ -5,7 +5,7 @@
             <div class="bottom-box" :style="{'width': width, 'left': left}"></div>
             <div v-for="(item, index) in tabs"
                  :key="index"
-                 :class="['each-tab', `tab${index}`, {'active-tab': active_tab == index}]">
+                 :class="['each-tab', 'hover', `tab${index}`, {'active-tab': active_tab == index}]">
                 {{ item }}
             </div>
 
@@ -31,7 +31,7 @@
             disabled: {
                 type: Array,
                 default: function () {
-                    return []
+                    return [1,3]
                 }
             }
         },
@@ -45,17 +45,20 @@
         },
         methods: {
             tabClick(e) {
+
+                if(e.target.className.match(/disabled/)) return;
                 this.active_tab = Number(e.target.className.match(/tab(\d)/)[1])
-                if(this.active_tab in this.disabled) {
-                    e.target.className = e.target.className + 'disabled'
-                    return;
-                }
                 this.width = e.target.clientWidth + 'px'
                 this.left = e.target.offsetLeft + 'px'
             }
         },
         mounted() {
             this.width = this.$el.querySelector('.tab0').clientWidth + 'px'
+
+            let tabs = this.$el.querySelectorAll('.each-tab')
+            for(let i in this.disabled) {
+                tabs[this.disabled[i]].className = tabs[this.disabled[i]].className.substring(0, tabs[this.disabled[i]].className.match(/hover/).index) + tabs[this.disabled[i]].className.substring(tabs[this.disabled[i]].className.match(/hover/).index + 6, tabs[this.disabled[i]].className.length) + ' disabled'
+            }
 
         }
 
@@ -84,7 +87,7 @@
     .tab0{
         margin-left: 0;
     }
-    .each-tab:hover{
+    .hover:hover{
         color: #0c94de;
     }
     .active-tab{
@@ -92,8 +95,8 @@
     }
     .disabled{
         cursor: not-allowed;
-        opacity: .6;
-        filter:alpha(opacity=60)
+        opacity: .3;
+        filter:alpha(opacity=30)
     }
     .bottom-box{
         position: absolute;
