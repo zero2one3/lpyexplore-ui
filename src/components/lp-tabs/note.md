@@ -1,4 +1,5 @@
 # lp-tabs 组件   ×
 
-属性参数     | 含义
+插槽名     | 含义
 -------- | ----- 
+content + index | active的tab的index对应的内容

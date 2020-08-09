@@ -69,6 +69,13 @@
 
     <button @click="loadingClick" class="loading">正在加载</button>
 
+    <lp-tabs>
+      <div slot="content0" class="contents">首页内容</div>
+      <div slot="content1" class="contents">文章信息内容</div>
+      <div slot="content2" class="contents">用户评论内容</div>
+      <div slot="content3" class="contents">联系我们内容</div>
+      <div slot="content4" class="contents">官方合作微信群内容</div>
+    </lp-tabs>
   </div>
 </template>
 
@@ -159,5 +166,8 @@
     position: relative;
     width: 100px;
     height: 40px;
+  }
+  .contents{
+    height: 500px;
   }
 </style>
