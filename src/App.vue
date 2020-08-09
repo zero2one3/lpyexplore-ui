@@ -1,10 +1,11 @@
 <template>
   <div id="app">
 
-    <lp-button type=""
+    <lp-button type="success"
                size="middle"
                 @click.native="btnClick"
-               :disabled="disabled">
+               :disabled="false"
+               class="try" style="position: relative">
         提交
     </lp-button>
 
@@ -66,7 +67,7 @@
 
     </lp-rate>
 
-    <button @click="loadingClick">正在加载</button>
+    <button @click="loadingClick" class="loading">正在加载</button>
 
   </div>
 </template>
@@ -133,12 +134,30 @@
               })
             },
             loadingClick() {
-              this.$loading()
+
+              let ret = this.$loading({
+                content: '',
+                fullScreen: false,
+                location: this.$el.querySelector('.loading')
+              })
+
+              this.$confirm({
+                content: '确定关闭加载动画吗？',
+                title: '提示'
+              })
+              .then(() => {
+                ret.close()
+              })
+
             }
 
         }
     }
 </script>
 <style>
-
+  .loading{
+    position: relative;
+    width: 100px;
+    height: 40px;
+  }
 </style>

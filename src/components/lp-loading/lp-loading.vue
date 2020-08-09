@@ -3,7 +3,7 @@
 
         <div class="content">
 
-            <div class="circle">
+            <div class="circle" :style="{'width': width, 'height': height}">
                 <svg t="1596793383301"
                      class="icon"
                      viewBox="0 0 1024 1024"
@@ -16,7 +16,7 @@
                     </path>
                 </svg>
             </div>
-            <div class="txt"></div>
+            <div class="txt" v-if="content != ''">{{ content }}</div>
 
         </div>
 
@@ -28,29 +28,34 @@
         name: "lp-loading",
         data() {
           return {
-              fullScreen: false
+              fullScreen: true,
+              content: '',
+              width: '42px',
+              height: '42px'
           }
+        },
+        beforeCreate() {
+            this.$EventBus.$emit('loadingClose', this)
         },
         mounted() {
 
-            this.$EventBus.$emit('loadingClose', this)
+            //旋转动画
             let loading_icon = this.$el.querySelector('.icon')
             let deg = 0
             setInterval(() => {
                 deg ++
                 loading_icon.style.transform = `rotate(${deg}deg)`
             }, 5)
-        },
-        updated() {
 
-        }
+            this.$EventBus.isLoading = this
+
+        },
+
     }
 </script>
 
 <style scoped>
     .loading_container{
-        height: 100%;
-        width: 100%;
         position: absolute;
         top: 0;
         left: 0;
@@ -58,18 +63,20 @@
         bottom: 0;
         display: flex;
         align-items: center;
-        background: rgba(238, 238, 238, .7);
+        background: rgba(238, 236, 236, 0.8);
         z-index: 998;
     }
     .content{
         width: 100%;
         display: inline-block;
-        /*background: red;*/
     }
     .circle{
-        height: 42px;
-        width: 42px;
         margin: 0 auto;
     }
-
+    .txt{
+        text-align: center;
+        padding-top: 10px;
+        color: #e097a3;
+        font-size: 1.2rem;
+    }
 </style>

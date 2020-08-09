@@ -13,7 +13,7 @@
             <div class="content">
 
                 <div class="content-box" :class="[{'center': center}]">
-                    <span>{{ content }}哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈</span>
+                    <span>{{ content }}</span>
                 </div>
 
             </div>
