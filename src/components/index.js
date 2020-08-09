@@ -4,7 +4,7 @@ import lp_sliding from "./lp-sliding/lp-sliding";
 import lp_accordion from "./lp-accordion/lp-accordion";
 import lp_switch from "./lp-switch/lp-switch";
 import lp_rate from "./lp-rate/lp-rate";
-import lp_loading from "./lp-loading/lp-loading"
+import lp_tabs from "./lp-tabs/lp-tabs"
 
 
 const components = [
@@ -14,7 +14,7 @@ const components = [
     lp_accordion,
     lp_switch,
     lp_rate,
-    lp_loading
+    lp_tabs,
 
 ]
 
