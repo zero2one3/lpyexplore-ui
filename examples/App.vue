@@ -84,7 +84,10 @@
     <lp-input :disabled="false"
               v-model="lpy"
               :clearable="false"
-              :showPassword="false"></lp-input>
+              :showPassword="false">
+
+    </lp-input>
+
 
 
   </div>

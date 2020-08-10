@@ -12,6 +12,9 @@ import lp_input from "./lp-input/lp-input"
 import lp_alert from "./lp-alert/lp-alert.js";
 import lp_dialog from "./lp-dialog/lp-dialog.js";
 import lp_loading from "./lp-loading/lp-loading.js";
+//全局方法
+import {removeClass} from "./tools/operateClassName/removeClass";
+import {addClass} from "./tools/operateClassName/addClass";
 
 const components = [
     lp_button,
@@ -42,6 +45,11 @@ const install = function (Vue) {
 
     //lp-loading组件注册
     lp_loading(Vue)
+
+    //注册操作className的方法
+    Vue.prototype.$addClass = addClass
+    Vue.prototype.$removeClass = removeClass
+
 }
 
 if(typeof window !== 'undefined' && window.Vue) {

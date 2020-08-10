@@ -21,7 +21,10 @@
         </i>
 
         <i class="fa fa-eye-slash showPassword"
-           :class="[{'show-hover': !disabled}, {'disabled': disabled}]"></i>
+           :class="[{'show-hover': !disabled}, {'disabled': disabled}]"
+           @click="showPass">
+
+        </i>
     </div>
 </template>
 
@@ -66,7 +69,8 @@
         },
         data() {
             return {
-                isFocus: this.focus
+                isFocus: this.focus,
+                isShow: false
             }
         },
         methods: {
@@ -82,6 +86,18 @@
             clearValue() {
                 if(this.disabled) return;
                 this.$el.querySelector('.lp-input-inner').value = ''
+            },
+            showPass(e) {
+                if(this.disabled) return;
+                if(this.isShow) {
+                    e.target.className = this.$addClass(this.$removeClass(e.target.className, 'fa-eye'), 'fa-eye-slash')
+                    this.isShow = false
+                }
+                else {
+                    e.target.className = this.$addClass(this.$removeClass(e.target.className, 'fa-eye-slash'), 'fa-eye')
+                    this.isShow = true
+                }
+
             }
         }
     }
@@ -137,6 +153,6 @@
         cursor: pointer;
     }
     i.show-hover:hover{
-
+        color: #b3b0b0;
     }
 </style>
