@@ -120,19 +120,19 @@
         margin-left: 10px;
     }
     .icon_info{
-        background: url("../../assets/lp-alert/info.png") no-repeat;
+        background: url("../../examples/assets/lp-alert/info.png") no-repeat;
         background-size: 100% 100%;
     }
     .icon_success{
-        background: url("../../assets/lp-alert/success.png") no-repeat;
+        background: url("../../examples/assets/lp-alert/success.png") no-repeat;
         background-size: 100% 100%;
     }
     .icon_warning{
-        background: url("../../assets/lp-alert/warning.png") no-repeat;
+        background: url("../../examples/assets/lp-alert/warning.png") no-repeat;
         background-size: 100% 100%;
     }
     .icon_err{
-        background: url("../../assets/lp-alert/err.png") no-repeat;
+        background: url("../../examples/assets/lp-alert/err.png") no-repeat;
         background-size: 100% 100%;
     }
     .txt{

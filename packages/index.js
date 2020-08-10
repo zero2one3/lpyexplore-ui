@@ -5,7 +5,10 @@ import lp_accordion from "./lp-accordion/lp-accordion";
 import lp_switch from "./lp-switch/lp-switch";
 import lp_rate from "./lp-rate/lp-rate";
 import lp_tabs from "./lp-tabs/lp-tabs"
-
+//全局方法组件
+import lp_alert from "./lp-alert/lp-alert.js";
+import lp_dialog from "./lp-dialog/lp-dialog.js";
+import lp_loading from "./lp-loading/lp-loading.js";
 
 const components = [
     lp_button,
@@ -15,7 +18,6 @@ const components = [
     lp_switch,
     lp_rate,
     lp_tabs,
-
 ]
 
 const install = function (Vue) {
@@ -24,9 +26,20 @@ const install = function (Vue) {
     install.isinstalled = true
 
     components.map(component => Vue.component(component.name, component))
+
+    Vue.prototype.$EventBus = new Vue()
+
+    //lp-alert组件注册
+    lp_alert(Vue)
+
+    //lp-confirm组件注册
+    lp_dialog(Vue)
+
+    //lp-loading组件注册
+    lp_loading(Vue)
 }
 
-if(window.Vue) {
+if(typeof window !== 'undefined' && window.Vue) {
    install(window.Vue)
 }
 

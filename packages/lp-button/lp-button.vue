@@ -142,15 +142,15 @@
         background: #0b8cd2 !important;
     }
     button.success{
-        background: #31d731;
+        background: #14c214;
         color: white;
     }
     button.success:hover{
-        background: #0be20b;
+        background: #19cd19;
 
     }
     button.success-click{
-        background: #2dc42d !important;
+        background: #1fb81f !important;
     }
     button.danger{
         background: #FF3333;
