@@ -1,3 +1,4 @@
+//全局组件
 import lp_button from './lp-button/lp-button'
 import lp_filp from "./lp-filp/lp-filp";
 import lp_sliding from "./lp-sliding/lp-sliding";
@@ -5,6 +6,8 @@ import lp_accordion from "./lp-accordion/lp-accordion";
 import lp_switch from "./lp-switch/lp-switch";
 import lp_rate from "./lp-rate/lp-rate";
 import lp_tabs from "./lp-tabs/lp-tabs"
+import lp_radio from "./lp-radio/lp-radio"
+import lp_input from "./lp-input/lp-input"
 //全局方法组件
 import lp_alert from "./lp-alert/lp-alert.js";
 import lp_dialog from "./lp-dialog/lp-dialog.js";
@@ -18,6 +21,8 @@ const components = [
     lp_switch,
     lp_rate,
     lp_tabs,
+    lp_radio,
+    lp_input
 ]
 
 const install = function (Vue) {

@@ -69,13 +69,24 @@
 
     <button @click="loadingClick" class="loading">正在加载</button>
 
-    <lp-tabs>
+    <lp-tabs :disabled="[0,4]">
       <div slot="content0" class="contents">首页内容</div>
       <div slot="content1" class="contents">文章信息内容</div>
       <div slot="content2" class="contents">用户评论内容</div>
       <div slot="content3" class="contents">联系我们内容</div>
       <div slot="content4" class="contents">官方合作微信群内容</div>
     </lp-tabs>
+
+    <lp-radio v-model="picked">男</lp-radio>
+    <lp-radio v-model="picked">女</lp-radio>
+    <div>{{ picked }}</div>
+
+    <lp-input :disabled="false"
+              v-model="lpy"
+              :clearable="false"
+              :showPassword="false"></lp-input>
+
+
   </div>
 </template>
 
@@ -94,7 +105,9 @@
                   {title: '请输入标题信息4', content_list: ['默认内容8', '默认内容8', '默认内容8']},
                   {title: '请输入标题信息5', content_list: ['默认内容4', '默认内容4', '默认内容4', '默认内容4', '默认内容4']}
                 ],
-                isDisabled: false
+                isDisabled: false,
+                picked: '',
+                lpy: '哈哈'
 
             }
         },
@@ -156,12 +169,14 @@
                 ret.close()
               })
 
-            }
+            },
+
 
         }
     }
 </script>
 <style>
+
   .loading{
     position: relative;
     width: 100px;
@@ -170,4 +185,8 @@
   .contents{
     height: 500px;
   }
+  .lp-input{
+    width: 300px;
+  }
+
 </style>

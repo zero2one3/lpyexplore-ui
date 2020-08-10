@@ -120,19 +120,19 @@
         margin-left: 10px;
     }
     .icon_info{
-        background: url("../../examples/assets/lp-alert/info.png") no-repeat;
+        background: url("assets/info.png") no-repeat;
         background-size: 100% 100%;
     }
     .icon_success{
-        background: url("../../examples/assets/lp-alert/success.png") no-repeat;
+        background: url("assets/success.png") no-repeat;
         background-size: 100% 100%;
     }
     .icon_warning{
-        background: url("../../examples/assets/lp-alert/warning.png") no-repeat;
+        background: url("assets/warning.png") no-repeat;
         background-size: 100% 100%;
     }
     .icon_err{
-        background: url("../../examples/assets/lp-alert/err.png") no-repeat;
+        background: url("assets/err.png") no-repeat;
         background-size: 100% 100%;
     }
     .txt{
