@@ -77,21 +77,25 @@
       <div slot="content4" class="contents">官方合作微信群内容</div>
     </lp-tabs>
 
-    <lp-radio v-model="picked">男</lp-radio>
-    <lp-radio v-model="picked">女</lp-radio>
-    <div>{{ picked }}</div>
 
     <lp-input :disabled="false"
               v-model="lpy"
               :clearable="true"
-              :showPassword="false"
-              type="text" size="big">
-
-    </lp-input>
-    <lp-input v-model="lpy">
+              size="big">
 
     </lp-input>
 
+    <lp-input v-model="lpy"
+              type="password"
+              :showPassword="true">
+
+    </lp-input>
+
+    <lp-radio v-model="picked" val="0" style="margin-left: 10px" type="border" :disabled="true">男</lp-radio>
+    <lp-radio v-model="picked" val="1" style="margin-left: 10px">女</lp-radio>
+    <lp-radio v-model="picked" val="3" style="margin-left: 10px">未知</lp-radio>
+    <div>pick的值为：{{ picked }}</div>
+    <button @click="toggle">转换</button>
 
 
   </div>
@@ -113,7 +117,7 @@
                   {title: '请输入标题信息5', content_list: ['默认内容4', '默认内容4', '默认内容4', '默认内容4', '默认内容4']}
                 ],
                 isDisabled: false,
-                picked: '',
+                picked: '1',
                 lpy: '哈哈'
 
             }
@@ -177,6 +181,15 @@
               })
 
             },
+          toggle() {
+              if(this.picked == '0') {
+                this.picked = '1'
+              }
+              else {
+                this.picked = '0'
+
+              }
+          }
 
 
         }

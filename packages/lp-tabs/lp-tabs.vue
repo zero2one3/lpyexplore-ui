@@ -98,6 +98,7 @@
         margin-left: 10px;
         z-index: 10;
         font-size: 16px;
+        color: #606266;
     }
     .tab0{
         margin-left: 0;

@@ -144,8 +144,9 @@
         cursor: pointer;
     }
     .input-focus{
-        border: 1px solid #0b8cd2;
+        border: 1px solid #0e95de;
         cursor: auto;
+        box-shadow: 0 0 6px #53aee3;
     }
     input.disabled{
         cursor: not-allowed;
