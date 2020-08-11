@@ -15,6 +15,7 @@ import lp_loading from "./lp-loading/lp-loading.js";
 //全局方法
 import {removeClass} from "./tools/operateClassName/removeClass";
 import {addClass} from "./tools/operateClassName/addClass";
+import {updateClass} from "./tools/operateClassName/updateClass";
 
 const components = [
     lp_button,
@@ -49,6 +50,7 @@ const install = function (Vue) {
     //注册操作className的方法
     Vue.prototype.$addClass = addClass
     Vue.prototype.$removeClass = removeClass
+    Vue.prototype.$updateClass = updateClass
 
 }
 

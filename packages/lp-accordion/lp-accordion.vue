@@ -1,6 +1,6 @@
 <template>
     <div class="ac_container"
-         :style="{'width': width}" :class="[{'ac_container_round': round == 1}]">
+         :style="{'width': width}" :class="[{'ac_container_round': round}]">
         <div v-for="(item, index) in content"
              :key="index"
              class="each_box"
@@ -8,9 +8,11 @@
 
             <div class="ac_title" :style="{'height': titleHeight, 'lineHeight': titleHeight, 'background': titleBg}">
                 <div :style="{'fontSize': TfontSize}" class="title">{{item.title}}</div>
-                <div class="icon" v-if="hasIcon == 1"
-                     :style="{'transform': current_title == index? 'rotate(90deg)': ''}">
-                    &#9654;
+                <div class="icon-box">
+                    <i class="icon fa fa-angle-right" v-if="hasIcon"
+                       :style="{'transform': current_title == index? 'rotate(90deg)': ''}">
+
+                    </i>
                 </div>
             </div>
 
@@ -19,7 +21,7 @@
                 <li v-for="(each_li, i) in item.content_list"
                     :key="i"
                     :style="{'marginTop':i==0?'':'-1px', 'height': liHeight, 'lineHeight': liHeight}"
-                    :class="[{'bottom_round': round == 1 && index == content.length - 1 && i == item.content_list.length - 1}]">
+                    :class="[{'bottom_round': round && index == content.length - 1 && i == item.content_list.length - 1}]">
                     <a>{{each_li}}</a>
                 </li>
             </ul>
@@ -71,12 +73,12 @@
                 default: '16px'
             },
             hasIcon: {
-                type: String,
-                default: '0'
+                type: Boolean,
+                default: false
             },
             round: {
-                type: String,
-                default: '0'
+                type: Boolean,
+                default: false
             },
             titleBg: {
                 type: String,
@@ -141,10 +143,15 @@
         width: 90%;
         float: left;
     }
-    .ac_title .icon{
+    .icon-box{
         width: 10%;
+        height: 100%;
         float: left;
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .ac_title .icon{
         transition: all 500ms ease;
     }
     .ac_plate{

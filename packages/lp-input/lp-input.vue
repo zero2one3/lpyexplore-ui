@@ -1,7 +1,9 @@
 <template>
     <div class="lp-input">
-        <input :type="type"
-               :class="['lp-input-inner',
+        <input :type="showPassword? (passwordVisible? 'text': 'password'): type"
+               :class="[
+                           'lp-input-inner',
+                           size,
                            {'hover': !isFocus && !disabled},
                            {'input-focus': isFocus},
                            {'disabled': disabled},
@@ -10,20 +12,21 @@
                @focus="inputFocus"
                @blur="inputBlur"
                @input="handleInput"
+               @change="handleChange"
                :name="name"
-               :disabled="disabled">
+               :disabled="disabled"
+               :value="value">
 
         <i class="fa fa-times clear"
            :class="[{'clear-hover': !disabled}, {'disabled': disabled}]"
-           :style="{'display': clearable? 'block': 'none'}"
+           v-if="clearable && value"
            @click="clearValue">
-
         </i>
 
         <i class="fa fa-eye-slash showPassword"
            :class="[{'show-hover': !disabled}, {'disabled': disabled}]"
+           v-else-if="showPassword && value"
            @click="showPass">
-
         </i>
     </div>
 </template>
@@ -63,6 +66,10 @@
             showPassword: {
                 type: Boolean,
                 default: false
+            },
+            size: {
+                type: String,
+                default: 'middle'
             }
 
 
@@ -70,33 +77,40 @@
         data() {
             return {
                 isFocus: this.focus,
-                isShow: false
+                isShow: false,
+                passwordVisible: false
             }
         },
         methods: {
             inputFocus() {
                 this.isFocus = true
+                this.$emit('focus')
             },
             inputBlur() {
                 this.isFocus = false
+                this.$emit('blur')
             },
             handleInput(e) {
                 this.$emit('input', e.target.value)
             },
+            handleChange() {
+                this.$emit('change')
+            },
             clearValue() {
                 if(this.disabled) return;
-                this.$el.querySelector('.lp-input-inner').value = ''
+                this.$emit('input', '')
             },
             showPass(e) {
                 if(this.disabled) return;
                 if(this.isShow) {
-                    e.target.className = this.$addClass(this.$removeClass(e.target.className, 'fa-eye'), 'fa-eye-slash')
+                    e.target.className = this.$updateClass(e.target.className, 'fa-eye', 'fa-eye-slash')
                     this.isShow = false
                 }
                 else {
-                    e.target.className = this.$addClass(this.$removeClass(e.target.className, 'fa-eye-slash'), 'fa-eye')
+                    e.target.className = this.$updateClass(e.target.className, 'fa-eye-slash', 'fa-eye')
                     this.isShow = true
                 }
+                this.passwordVisible = !this.passwordVisible
 
             }
         }
@@ -107,10 +121,18 @@
     .lp-input{
         position: relative;
     }
+    input.small{
+        height: 30px;
+    }
+    input.middle{
+        height: 40px;
+    }
+    input.big{
+        height: 50px;
+    }
     .lp-input-inner{
         outline: none;
         width: 100%;
-        height: 40px;
         padding: 0 25px 0 15px;
         font-size: 14px;
         border-radius: 5px;

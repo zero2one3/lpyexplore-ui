@@ -29,8 +29,8 @@
                   :content="list"
                   width="300px"
                   titleHeight="50px"
-                  hasIcon="1"
-                  round="1"
+                  :hasIcon="true"
+                  :round="true"
                   >
 
     </lp-accordion>
@@ -83,8 +83,12 @@
 
     <lp-input :disabled="false"
               v-model="lpy"
-              :clearable="false"
-              :showPassword="false">
+              :clearable="true"
+              :showPassword="false"
+              type="text" size="big">
+
+    </lp-input>
+    <lp-input v-model="lpy">
 
     </lp-input>
 

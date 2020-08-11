@@ -9,13 +9,15 @@
 
                 <span v-for="(item, index) in 5"
                       :key="index"
+                      class="fa"
                       :class="[
                           'star' + index,
                           {'active': index - 1 &lt; currentStar},
-                          {'star': !disabled}
+                          {'star': !disabled},
+                          {'fa-star': index - 1 &lt; currentStar},
+                          {'fa-star-o': index - 1 &gt;= currentStar}
                        ]">
 
-                    {{ index - 1 &lt; currentStar ? '&#9733;': '&#9734;' }}
                 </span>
             </div>
 
@@ -118,7 +120,7 @@
     }
     .stars span.star:hover{
         cursor: pointer;
-        transform: scale(1.2, 1.2);
+        transform: scale(1.05, 1.05);
         font-weight: 600;
     }
     span.active{
