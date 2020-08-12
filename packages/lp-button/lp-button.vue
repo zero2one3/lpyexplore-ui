@@ -4,6 +4,7 @@
             :class="[size, type, {isRound:round},disabled? 'disabled':'']"
             @mousedown="btnDown"
             @mouseup="btnUp"
+            @click="btnclick"
     >
         <slot>lpUi按钮</slot>
     </button>
@@ -77,6 +78,9 @@
                 else {
                     btn.removeAttribute('disabled')
                 }
+            },
+            btnclick() {
+                this.$emit('click')
             }
         },
         mounted() {
@@ -93,12 +97,14 @@
 
 <style scoped>
     button{
-        border: 1px solid #e1e1e1;
+        border: 1px solid #d4d2d2;
         background: white;
         border-radius: 5px;
         padding: 0 10px;
         outline: none;
         cursor: pointer;
+        color: #606266;
+        text-align: center;
     }
     button.disabled{
         cursor: not-allowed;
@@ -118,9 +124,9 @@
         font-size: 18px;
     }
     button.small{
-        height: 30px;
+        height: 35px;
         width: 60px;
-        font-size: 14px;
+        font-size: 12px;
         line-height: 30px;
     }
     button:hover{
@@ -142,25 +148,25 @@
         background: #0b8cd2 !important;
     }
     button.success{
-        background: #14c214;
+        background: #17af17;
         color: white;
     }
     button.success:hover{
-        background: #19cd19;
+        background: #19c119;
 
     }
     button.success-click{
-        background: #1fb81f !important;
+        background: #22b422 !important;
     }
     button.danger{
-        background: #FF3333;
+        background: #EE0000;
         color: white;
     }
     button.danger:hover{
-        background: #EE0000;
+        background: #FF3333;
     }
     button.danger-click{
-        background: #FF3333 !important;
+        background: #EE0000 !important;
     }
     button.warning{
         background: #f39a34;

@@ -1,14 +1,27 @@
 <template>
     <div class="lp_sliding_container" :style="{'width': width, 'height':height, 'fontSize': fontSize}">
 
-        <div class="lp_sliding_bg" :style="bg_width">{{ isFull? bg_content: '' }}</div>
+        <div class="lp_sliding_bg" :style="bg_width">
+            <span v-show="isFull">
+                <slot name="bg_content">
+                    {{ bg_content }}
+                </slot>
+            </span>
+        </div>
 
-        <div class="lp_sliding_front">{{ front_content }}</div>
+        <div class="lp_sliding_front">
+            <span>
+                <slot name="front_content">
+                     {{ front_content }}
+                </slot>
+            </span>
+
+        </div>
 
         <div class="lp_sliding_block"
              @mousedown="dragStart"
              :style="[move_left, (isSliding || isFull)? block_bg_style: '']">
-            <slot> >> </slot>
+            <slot name="block_content"> >> </slot>
         </div>
 
     </div>
@@ -175,7 +188,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        -webkit-touch-callout: none;
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;

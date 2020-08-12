@@ -1,29 +1,55 @@
 <template>
   <div id="app">
+    <!--      lp-button组件                 -->
+    <div id="lp-button-small">
+      <lp-button size="small">default</lp-button>
+      <lp-button type="success" size="small">success</lp-button>
+      <lp-button type="primary" size="small">primary</lp-button>
+      <lp-button type="danger" size="small">danger</lp-button>
+      <lp-button type="warning" size="small">warning</lp-button>
+    </div>
+    <div id="lp-button-middle">
+      <lp-button>default</lp-button>
+      <lp-button type="success"
+                 @click="btnClick"
+                 :disabled="false">
+        success
+      </lp-button>
+      <lp-button type="primary">primary</lp-button>
+      <lp-button type="danger">danger</lp-button>
+      <lp-button type="warning">warning</lp-button>
+    </div>
+    <div id="lp-button-big">
+      <lp-button size="big" :round="true">default</lp-button>
+      <lp-button type="success" size="big" :round="true">success</lp-button>
+      <lp-button type="primary" size="big" :round="true">primary</lp-button>
+      <lp-button type="danger" size="big" :round="true">danger</lp-button>
+      <lp-button type="warning" size="big" :round="true">warning</lp-button>
+    </div>
 
-    <lp-button type="success"
-               size="middle"
-                @click.native="btnClick"
-               :disabled="false"
-               class="try" style="position: relative">
-        提交
-    </lp-button>
+    <div id="lp-filp" style="margin-top: 20px">
+      <lp-filp width="150px"
+               height="150px"
+               fontBg="lavender">
 
-    <lp-filp width="150px"
-             height="150px"
-             fontBg="lavender">
+        <span slot="front">嘻嘻，正面</span>
+        <span slot="back">哈哈，背面</span>
 
-      <span slot="front">嘻嘻，正面</span>
-      <span slot="back">哈哈，背面</span>
+      </lp-filp>
+    </div>
 
-    </lp-filp>
+    <div id="lp-sliding" style="margin-top: 20px">
+      <lp-sliding style="margin-bottom: 10px"
+                  @isFull="isFull"
+                  width="400px"
+                  height="40px"
+                  fontSize="16px">
 
-    <lp-sliding style="margin-bottom: 10px"
-                @isFull="isFull"
-                width="400px"
-                height="40px"
-                fontSize="16px"></lp-sliding>
-    <button @click="btn">提交验证</button>
+      </lp-sliding>
+      <button @click="btn">提交验证</button>
+    </div>
+
+
 
     <lp-accordion style="margin-bottom: 10px"
                   :content="list"
@@ -91,9 +117,9 @@
 
     </lp-input>
 
-    <lp-radio v-model="picked" val="0" style="margin-left: 10px" type="border" :disabled="true">男</lp-radio>
+    <lp-radio v-model="picked" val="0" style="margin-left: 10px" type="border">男</lp-radio>
     <lp-radio v-model="picked" val="1" style="margin-left: 10px">女</lp-radio>
-    <lp-radio v-model="picked" val="3" style="margin-left: 10px">未知</lp-radio>
+    <lp-radio v-model="picked" val="3" style="margin-left: 10px" :disabled="true">未知</lp-radio>
     <div>pick的值为：{{ picked }}</div>
     <button @click="toggle">转换</button>
 
@@ -124,7 +150,7 @@
         },
         methods: {
             btnClick() {
-                this.disabled = !this.disabled
+                this.disabled = true
             },
             isFull(data) {
               if(data) {
