@@ -1,12 +1,17 @@
 <template>
 
-    <button class="btn"
-            :class="[size, type, {isRound:round},disabled? 'disabled':'']"
-            @mousedown="btnDown"
-            @mouseup="btnUp"
-            @click="btnclick"
-    >
-        <slot>lpUi按钮</slot>
+    <button class="lp-button-container"
+            :class="[
+                `lp-button-${type}`,
+                {'is-round': round},
+                {'is-circle': circle},
+                {'is-disabled': disabled},
+                {'is-plain': plain}
+            ]"
+            @click="btnClick">
+        <span>
+            <slot>{{ circle? '查': 'lp-button' }}</slot>
+        </span>
     </button>
 
 </template>
@@ -15,167 +20,205 @@
     export default {
         name: "lp-button",
         props: {
-            size: {
-                type: String,
-                default: 'middle'
-            },
             type: {
-                type: String
+                type: String,
+                default: ''
             },
-            disabled: {
-                type: Boolean,
-                default: false
+            plain: {
+              type: Boolean,
+              default: false
             },
             round: {
                 type: Boolean,
                 default: false
             },
-
-        },
-        data() {
-            return {
-                type_list: ['primary', 'success', 'danger', 'warning'],
-                obj_list: ['primary-click', 'success-click', 'danger-click', 'warning-click'],
-                current_type: '',
+            circle: {
+                type: Boolean,
+                default: false
+            },
+            disabled: {
+                type: Boolean,
+                default: false
             }
+
         },
         methods: {
-            //鼠标按下
-            btnDown() {
-                let btn = this.$el
-                let btn_class = btn.className
-                let class_name = btn_class.split(' ')
-                class_name.forEach(value => {
-                    let index = this.type_list.indexOf(value)
-                    if (index !== -1) {
-                        btn.className = btn_class + ' ' + this.obj_list[index]
-                        this.current_type = value
-                    }
-
-                })
-                if (this.current_type === '') {
-                    btn.className = btn_class + ' default-click'
-                }
-
-            },
-            //鼠标松开
-            btnUp() {
-                let btn = this.$el
-                let btn_class = btn.className
-                if (this.current_type !== '') {
-                    let index = this.type_list.indexOf(this.current_type)
-                    btn.className = btn_class.replace(new RegExp("(\\s|^)" + this.obj_list[index] + "(\\s|$)"), '')
-                } else {
-                    btn.className = btn_class.replace(new RegExp("(\\s|^)" + 'default-click' + "(\\s|$)"), '')
-                }
-            },
-            //判断按钮是否禁用
-            isDisabled() {
-                let btn = this.$el
-                if(this.disabled) {
-                    btn.disabled = 'disabled'
-                }
-                else {
-                    btn.removeAttribute('disabled')
-                }
-            },
-            btnclick() {
-                this.$emit('click')
+            btnClick(e) {
+                if(this.disabled) return;
+                this.$emit('click', e)
             }
         },
-        mounted() {
-            this.isDisabled()
 
-        },
-        updated() {
-            this.isDisabled()
-        }
 
 
     }
 </script>
 
 <style scoped>
-    button{
-        border: 1px solid #d4d2d2;
-        background: white;
-        border-radius: 5px;
-        padding: 0 10px;
-        outline: none;
+    .lp-button-container{
         cursor: pointer;
+        width: 80px;
+        height: 45px;
+        border-radius: 5px;
+        border: 1px solid #d9d3d3;
+        background: white;
         color: #606266;
+        outline: none;
+        display: inline-block;
+        font-size: 14px;
+        user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        -moz-user-select: none;
         text-align: center;
     }
-    button.disabled{
+
+    .lp-button-container:not(.is-disabled):hover{
+        background: rgba(162, 222, 252, 0.5);
+        color: #1292d9;
+    }
+    .lp-button-container:not(.is-disabled):active{
+        border: 1px solid #3e9fd4;
+    }
+
+    .lp-button-success{
+        background: #17af17;
+        color: white;
+        border: 1px solid #17af17;
+    }
+    .lp-button-success:not(.is-disabled):hover{
+        background: #19c119;
+        color: white;
+        border: 1px solid #19c119;
+    }
+    .lp-button-success:not(.is-disabled):active{
+        background: #22b422;
+    }
+
+    .lp-button-danger{
+        background: rgba(222, 7, 7, 0.8);
+        color: white;
+        border: 1px solid rgba(222, 7, 7, .8);
+    }
+    .lp-button-danger:not(.is-disabled):hover{
+        background: rgba(246, 76, 76, 1);
+        color: white;
+        border: 1px solid rgba(246, 76, 76, 1);
+    }
+    .lp-button-danger:not(.is-disabled):active{
+        background: rgba(238, 0, 0, .8);
+    }
+
+    .lp-button-primary{
+        background: #0c94de;
+        color: white;
+        border: 1px solid #0c94de;
+    }
+    .lp-button-primary:not(.is-disabled):hover{
+        background: #0e9fef;
+        color: white;
+        border: 1px solid #0e9fef;
+    }
+    .lp-button-primary:not(.is-disabled):active{
+        background: #0b8cd2;
+    }
+
+    .lp-button-warning{
+        background: #f39a34;
+        color: white;
+        border: 1px solid #f39a34;
+    }
+    .lp-button-warning:not(.is-disabled):hover{
+        background: #fca74b;
+        color: white;
+        border: 1px solid #fca74b;
+    }
+    .lp-button-warning:not(.is-disabled):active{
+        background: #f39a34;
+    }
+
+    /*  -------------plain---------------  */
+    .lp-button-container.is-plain:not(.is-disabled):hover{
+        background: white;
+        border: 1px solid #3e9fd4;
+    }
+    .lp-button-container.is-plain:not(.is-disabled):active{
+        border: 1px solid #3283ac;
+        color: #3283ac;
+    }
+
+    .lp-button-success.is-plain{
+        background: rgba(26, 189, 26, 0.15);
+        color: #61b836;
+        border: 1px solid rgba(127, 201, 90, .5);
+    }
+    .lp-button-success.is-plain:not(.is-disabled):hover{
+        background: #19c119;
+        color: white;
+        border: 1px solid #19c119;
+    }
+    .lp-button-success.is-plain:not(.is-disabled):active{
+        background: #22b422;
+    }
+
+    .lp-button-danger.is-plain{
+        background: rgba(222, 7, 7, 0.09);
+        color: rgba(224, 63, 63, .9);
+        border: 1px solid rgba(222, 7, 7, .2);
+    }
+    .lp-button-danger.is-plain:not(.is-disabled):hover{
+        background: rgba(246, 76, 76, 1);
+        color: white;
+        border: 1px solid rgba(246, 76, 76, 1);
+    }
+    .lp-button-danger.is-plain:not(.is-disabled):active{
+        background: rgba(238, 0, 0, .8);
+    }
+
+    .lp-button-primary.is-plain{
+        background: rgba(12, 148, 222, .1);
+        color: #0c94de;
+        border: 1px solid rgba(12, 148, 222, .35);
+    }
+    .lp-button-primary.is-plain:not(.is-disabled):hover{
+        background: #0e9fef;
+        color: white;
+        border: 1px solid #0e9fef;
+    }
+    .lp-button-primary.is-plain:not(.is-disabled):active{
+        background: #0b8cd2;
+    }
+
+    .lp-button-warning.is-plain{
+        background: rgba(243, 154, 52, .1);
+        color: #f39a34;
+        border: 1px solid rgba(243, 154, 52, .4);
+    }
+    .lp-button-warning.is-plain:not(.is-disabled):hover{
+        background: #fca74b;
+        color: white;
+        border: 1px solid #fca74b;
+    }
+    .lp-button-warning.is-plain:not(.is-disabled):active{
+        background: #f39a34;
+    }
+
+    /*  ------------- round ---------------  */
+    .lp-button-container.is-round{
+        border-radius: 100px;
+    }
+
+    /*  ------------- circle ---------------  */
+    .lp-button-container.is-circle{
+        border-radius: 50%;
+        width: 45px;
+    }
+
+    /*  ------------- disabled ---------------  */
+    .lp-button-container.is-disabled{
         cursor: not-allowed;
         opacity: .6;
         filter:alpha(opacity=60)
     }
-    button.isRound{
-        border-radius: 50px;
-    }
-    button.middle{
-        height: 40px;
-        width: 80px;
-    }
-    button.big{
-        height: 50px;
-        width: 90px;
-        font-size: 18px;
-    }
-    button.small{
-        height: 35px;
-        width: 60px;
-        font-size: 12px;
-        line-height: 30px;
-    }
-    button:hover{
-        background: #e8f1ff;
-        color: 	#00BFFF;
-    }
-    button.default-click{
-        border: 1px solid #00BFFF;
-    }
-    button.primary{
-        background: #0c94de;
-        color: white;
-    }
-    button.primary:hover{
-        background: #0e9fef;
 
-    }
-    button.primary-click{
-        background: #0b8cd2 !important;
-    }
-    button.success{
-        background: #17af17;
-        color: white;
-    }
-    button.success:hover{
-        background: #19c119;
-
-    }
-    button.success-click{
-        background: #22b422 !important;
-    }
-    button.danger{
-        background: #EE0000;
-        color: white;
-    }
-    button.danger:hover{
-        background: #FF3333;
-    }
-    button.danger-click{
-        background: #EE0000 !important;
-    }
-    button.warning{
-        background: #f39a34;
-        color: white;
-    }
-    button.warning:hover{
-        background: #fca74b;
-    }
-    button.warning-click{
-        background: #d78c30 !important;
-    }
 </style>

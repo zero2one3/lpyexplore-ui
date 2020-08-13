@@ -18,7 +18,7 @@ export default function (Vue) {
         //挂载
         confirm.$mount()
         document.getElementById('app').appendChild(confirm.$el)
-        console.log(this.$EventBus._events)
+
         return new Promise((resolve, reject) => {
 
             this.$EventBus.$once('confirmClick', (isSure) => {

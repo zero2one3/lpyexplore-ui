@@ -1,31 +1,53 @@
 <template>
   <div id="app">
-    <!--      lp-button组件                 -->
-    <div id="lp-button-small">
-      <lp-button size="small">default</lp-button>
-      <lp-button type="success" size="small">success</lp-button>
-      <lp-button type="primary" size="small">primary</lp-button>
-      <lp-button type="danger" size="small">danger</lp-button>
-      <lp-button type="warning" size="small">warning</lp-button>
+    <!--      lp-button组件        -->
+    <div id="lp-button">
+      <div>
+        <lp-button style="margin-left: 20px" plain>default</lp-button>
+        <lp-button type="success" style="margin-left: 20px" plain>success</lp-button>
+        <lp-button type="primary" style="margin-left: 20px" plain>primary</lp-button>
+        <lp-button type="danger" style="margin-left: 20px" plain>danger</lp-button>
+        <lp-button type="warning" style="margin-left: 20px" plain>warning</lp-button>
+      </div>
+      <div style="margin-top: 20px">
+        <lp-button style="margin-left: 20px" round>default</lp-button>
+        <lp-button type="success" style="margin-left: 20px" round>success</lp-button>
+        <lp-button type="primary" style="margin-left: 20px" round>primary</lp-button>
+        <lp-button type="danger" style="margin-left: 20px" round>danger</lp-button>
+        <lp-button type="warning" style="margin-left: 20px" round>warning</lp-button>
+      </div>
+      <div style="margin-top: 20px">
+
+        <lp-button style="margin-left: 20px" circle>
+          <i class="fa fa-address-book"></i>
+        </lp-button>
+
+        <lp-button type="success" style="margin-left: 20px" circle>
+          <i class="fa fa-check"></i>
+        </lp-button>
+
+        <lp-button type="primary" style="margin-left: 20px" circle>
+          <i class="fa fa-envelope-open-o"></i>
+        </lp-button>
+
+        <lp-button type="danger" style="margin-left: 20px" circle>
+          <i class="fa fa-skyatlas"></i>
+        </lp-button>
+
+        <lp-button type="warning" style="margin-left: 20px" circle>
+          <i class="fa  fa-bell-slash-o"></i>
+        </lp-button>
+
+      </div>
+      <div style="margin-top: 20px">
+        <lp-button style="margin-left: 20px" disabled>default</lp-button>
+        <lp-button type="success" style="margin-left: 20px" disabled>success</lp-button>
+        <lp-button type="primary" style="margin-left: 20px" disabled>primary</lp-button>
+        <lp-button type="danger" style="margin-left: 20px" disabled>danger</lp-button>
+        <lp-button type="warning" style="margin-left: 20px" disabled>warning</lp-button>
+      </div>
     </div>
-    <div id="lp-button-middle">
-      <lp-button>default</lp-button>
-      <lp-button type="success"
-                 @click="btnClick"
-                 :disabled="false">
-        success
-      </lp-button>
-      <lp-button type="primary">primary</lp-button>
-      <lp-button type="danger">danger</lp-button>
-      <lp-button type="warning">warning</lp-button>
-    </div>
-    <div id="lp-button-big">
-      <lp-button size="big" :round="true">default</lp-button>
-      <lp-button type="success" size="big" :round="true">success</lp-button>
-      <lp-button type="primary" size="big" :round="true">primary</lp-button>
-      <lp-button type="danger" size="big" :round="true">danger</lp-button>
-      <lp-button type="warning" size="big" :round="true">warning</lp-button>
-    </div>
+
 
     <div id="lp-filp" style="margin-top: 20px">
       <lp-filp width="150px"
@@ -222,7 +244,9 @@
     }
 </script>
 <style>
-
+  .lp-button .bt{
+    margin-left: 20px;
+  }
   .loading{
     position: relative;
     width: 100px;
