@@ -1,10 +1,9 @@
 <template>
     <div class="ac_container"
-         :style="{'width': width}" :class="[{'ac_container_round': round}]">
+         :class="[{'ac_container_round': round}]">
         <div v-for="(item, index) in content"
              :key="index"
-             class="each_box"
-             :style="{'width': width}">
+             class="each_box">
 
             <div class="ac_title" :style="{'height': titleHeight, 'lineHeight': titleHeight, 'background': titleBg}">
                 <div :style="{'fontSize': TfontSize}" class="title">{{item.title}}</div>
@@ -51,10 +50,6 @@
                         {title: '请输入标题信息2', content_list: ['默认内容4', '默认内容5', '默认内容6']}
                     ]
                 }
-            },
-            width: {
-                type: String,
-                default: '300px'
             },
             titleHeight: {
                 type: String,
@@ -115,6 +110,7 @@
 <style scoped>
     .ac_container{
         line-height:0;
+        width: 300px;
     }
     .ac_container_round{
         border-radius: 10px;

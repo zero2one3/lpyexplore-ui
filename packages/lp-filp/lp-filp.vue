@@ -1,11 +1,15 @@
 <template>
-    <div class="card" :style="{'width': width, 'height': height}">
-        <div class="front slid" :class="[fontBg? fontBg: '']">
+    <div class="card">
+        <div class="front slid" :class="[fontBg? fontBg: '', {'is-center': center}]">
+
             <slot name="front">正面内容</slot>
+
         </div>
 
-        <div class="back slid"  :class="[backBg? backBg: '']">
+        <div class="back slid"  :class="[backBg? backBg: '', {'is-center': center}]">
+
             <slot name="back">背面内容</slot>
+
         </div>
     </div>
 </template>
@@ -14,21 +18,6 @@
     export default {
         name: "lp-filp",
         props: {
-            //卡片宽度
-            width: {
-                type: String,
-                default: '150px'
-            },
-            //卡片高度
-            height: {
-                type: String,
-                default: '150px'
-            },
-            //字体大小
-            fontSize: {
-                type: String,
-                default: '18px'
-            },
             //卡片背面背景颜色
             fontBg: {
                 type: String,
@@ -38,23 +27,26 @@
             backBg: {
                 type: String,
                 default: 'pink'
+            },
+            center: {
+                type: Boolean,
+                default: true
             }
-        },
-        data() {
-            return {
-
-            }
-        },
+        }
     }
 </script>
 
 <style scoped>
     /*基础动画样式*/
     .card{
-        width: 100px;
-        height: 100px;
+        width: 150px;
+        height: 150px;
         position: relative;
         display: inline-block;
+        user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
     }
     .slid{
         height: 100%;
@@ -64,11 +56,13 @@
         backface-visibility: hidden;
         transition: all 1s ease;
         transform-style: preserve-3d;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    .slid.is-center{
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 5px;
-        box-sizing: border-box;
     }
     .front{
         transform: rotateY(0deg);
@@ -91,5 +85,8 @@
     }
     .pink{
         background-image: linear-gradient(to left bottom, #fdeb82, #f78fad);
+    }
+    .blue{
+        background-image: linear-gradient(to left bottom, #41d8dd, #5583ee);
     }
 </style>

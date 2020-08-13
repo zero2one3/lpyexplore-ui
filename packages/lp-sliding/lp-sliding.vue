@@ -1,10 +1,10 @@
 <template>
-    <div class="lp_sliding_container" :style="{'width': width, 'height':height, 'fontSize': fontSize}">
+    <div class="lp_sliding_container">
 
         <div class="lp_sliding_bg" :style="bg_width">
-            <span v-show="isFull">
+            <span v-show="isFull && iconChange">
                 <slot name="bg_content">
-                    {{ bg_content }}
+                    验证成功
                 </slot>
             </span>
         </div>
@@ -12,7 +12,7 @@
         <div class="lp_sliding_front">
             <span>
                 <slot name="front_content">
-                     {{ front_content }}
+                     向右滑动滑块完成验证
                 </slot>
             </span>
 
@@ -21,7 +21,13 @@
         <div class="lp_sliding_block"
              @mousedown="dragStart"
              :style="[move_left, (isSliding || isFull)? block_bg_style: '']">
-            <slot name="block_content"> >> </slot>
+            <span v-show="!animation || !isFull">
+                <slot name="block_content">
+                    <i class="fa fa-long-arrow-right"></i>
+                </slot>
+            </span>
+            <i v-show="isFull && !iconChange && animation" class="fa fa-circle-o-notch fa-spin fullIcon"></i>
+            <i v-show="iconChange && animation" class="fa fa-check"></i>
         </div>
 
     </div>
@@ -31,25 +37,9 @@
     export default {
         name: "lp-sliding",
         props: {
-            front_content: {
-                type: String,
-                default: '滑动滑块完成验证'
-            },
-            bg_content: {
-                type: String,
-                default: '验证成功'
-            },
-            width: {
-                type: String,
-                default: '600px'
-            },
-            height: {
-                type: String,
-                default: '50px'
-            },
-            fontSize: {
-                type: String,
-                default: '16px'
+            animation: {
+                type: Boolean,
+                default: false
             }
         },
         data() {
@@ -67,12 +57,20 @@
                     color: 'white',
                     border: '1px solid rgb(25,145,250)'
                 },
+                iconChange: false
             }
         },
         methods: {
             dragStart(e) {
                 this.startX = e.screenX
-                this.isSliding = true
+                if(this.animation && !this.iconChange && this.isFull) {
+                    setTimeout(() => {
+                        this.isSliding = true
+                    }, 800)
+                } else {
+                    this.isSliding = true
+                }
+
             }
         },
         mounted() {
@@ -96,6 +94,7 @@
             //处理滑块的滑动事件
             window.onmousemove =  (e) => {
                 if(this.isSliding === true) {
+                    this.iconChange = false
                     this.isFull = false
                     this.$emit('isFull', this.isFull)
                     let moveX = e.screenX
@@ -119,7 +118,17 @@
                         this.startX = differ + 0.5 * this.sliding_width
                         this.bg_width.width = this.box_width + 'px'
                         this.isFull = true
-                        this.$emit('isFull', this.isFull)
+                        this.isSliding = false
+                        setTimeout(() => {
+                            this.iconChange = true
+                            this.$emit('isFull', this.isFull)
+                        }, 800)
+
+                        setTimeout(() => {
+                            this.$destroy(true)
+                        }, 800)
+
+
                     }
                 }
             }
@@ -139,6 +148,8 @@
                     }
                 }
                 this.isSliding = false
+
+
             }
         }
     }
@@ -146,9 +157,10 @@
 
 <style scoped>
     .lp_sliding_container{
-        height: 50px;
+        height: 40px;
         position: relative;
-        width: 600px;
+        width: 400px;
+        color: #606266;
     }
     .lp_sliding_block{
         position: absolute;

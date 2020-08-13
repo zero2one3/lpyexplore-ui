@@ -48,65 +48,66 @@
       </div>
     </div>
 
-
+    <!--      lp-filp组件        -->
     <div id="lp-filp" style="margin-top: 20px">
-      <lp-filp width="150px"
-               height="150px"
-               fontBg="lavender">
+      <lp-filp fontBg="lavender">
 
-        <span slot="front">嘻嘻，正面</span>
-        <span slot="back">哈哈，背面</span>
+        <span slot="front">我是正面的内容</span>
+        <span slot="back">我是背面的内容</span>
 
       </lp-filp>
+
+      <lp-filp style="margin-left: 20px" backBg="green">
+
+      </lp-filp>
+
+      <lp-filp style="margin-left: 20px" fontBg="green" backBg="blue"></lp-filp>
+
+      <lp-filp style="margin-left: 20px" fontBg="blue" backBg="lavender"></lp-filp>
+
     </div>
 
+
+    <!--      lp-sliding组件        -->
     <div id="lp-sliding" style="margin-top: 20px">
       <lp-sliding style="margin-bottom: 10px"
                   @isFull="isFull"
-                  width="400px"
-                  height="40px"
-                  fontSize="16px">
+                  animation>
 
       </lp-sliding>
-      <button @click="btn">提交验证</button>
+      <lp-button @click="btn" type="primary">提交验证</lp-button>
     </div>
 
 
+    <!--      lp-accordion组件        -->
+    <div id="lp-accordion" style="margin-top: 20px">
+      <lp-accordion :content="list"
+                    titleHeight="50px"
+                    :hasIcon="true"
+                    :round="true"
+      >
 
-    <lp-accordion style="margin-bottom: 10px"
-                  :content="list"
-                  width="300px"
-                  titleHeight="50px"
-                  :hasIcon="true"
-                  :round="true"
-                  >
+      </lp-accordion>
+    </div>
 
-    </lp-accordion>
 
-    <button @click="alertShow">出现弹框</button>
+    <!--      lp-alert组件        -->
+    <div id="lp-alert" style="margin-top: 20px">
+      <lp-button @click="alertShow" type="success">出现弹框</lp-button>
+    </div>
 
-    <lp-switch style="margin-top: 30px"
-               :disabled="false"
-               :open="false"
-               :delay="true">
+    <!--      lp-switch组件        -->
+    <div id="lp-switch" style="margin-top: 20px">
+      <lp-switch
+              :disabled="false"
+              :open="false"
+              :delay="true">
+      </lp-switch>
+    </div>
 
-    </lp-switch>
 
     <button @click="confirmShow">出现确认弹框</button>
 
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
 
     <lp-rate textType="grade"
              :rate="3"
@@ -162,7 +163,8 @@
                     links:['http://www.baidu.com','http://www.baidu.com','http://www.baidu.com']
                   },
                   {title: '请输入标题信息4', content_list: ['默认内容8', '默认内容8', '默认内容8']},
-                  {title: '请输入标题信息5', content_list: ['默认内容4', '默认内容4', '默认内容4', '默认内容4', '默认内容4']}
+                  {title: '请输入标题信息5', content_list: ['默认内容4', '默认内容4', '默认内容4', '默认内容4', '默认内容4']},
+                  {title: '请输入标题信息43'},
                 ],
                 isDisabled: false,
                 picked: '1',

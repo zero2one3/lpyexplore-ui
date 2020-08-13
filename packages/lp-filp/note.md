@@ -3,11 +3,9 @@
 
 属性参数     | 可选值
 -------- | ----- 
-width(宽度)  | 150px(默认)
-height(高度) | 150px(默认) 
-fontSize(字体大小)  | false(默认)/true 
-fontBg(正面背景色)  | pink(默认)/green/lavender
-backBg(背面背景色)  | pink(默认)/green/lavender
+fontBg(正面背景色)  | pink(默认)/green/lavender/blue
+backBg(背面背景色)  | pink(默认)/green/lavender/blue
+center(文字是否居中) | true(默认)/false
 
 插槽     | 含义
 -------- | ----- 
