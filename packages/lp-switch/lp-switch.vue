@@ -1,17 +1,13 @@
 <template>
     <div class="switch_box"
-         :class="{'disabled': disabled == true || disabled == 'true'}"
+         :class="{'disabled': disabled}"
          @click="switchClick"
-         :style="{'background': isOpen? bg: 'rgba(193,193,193,1)'}">
+         :style="{'background': position === 'right'? open_color: close_color}">
+
         <div class="block"
-             :class="[
-                 {'on_left': position == 'left' && isOpen == false},
-                 {'on_center': position == 'center'},
-                 {'on_center_left': position == 'center' && left2right == true},
-                 {'on_center_right': position == 'center' && left2right == false},
-                 {'on_right': position == 'right' || isOpen == true}
-             ]">
+             :style="{'left': position === 'left'? '2px': left}">
         </div>
+
     </div>
 </template>
 
@@ -20,9 +16,8 @@
         name: "lp-switch",
         data() {
             return {
-                isOpen: this.open,
-                position: 'left',
-                left2right: !this.open,
+                position: this.open? 'right': 'left',
+                left: null
             }
         },
         props: {
@@ -30,15 +25,15 @@
                 type: Boolean,
                 default: false
             },
-            bg: {
+            open_color: {
                 type: String,
                 default: '#ea3e3e'
             },
-            disabled: {
-                type: Boolean,
-                default: false
+            close_color: {
+                type: String,
+                default: 'rgba(193,193,193,1)'
             },
-            delay: {
+            disabled: {
                 type: Boolean,
                 default: false
             }
@@ -46,27 +41,23 @@
         methods: {
             switchClick() {
                 if(this.disabled == true) return;
-                if(this.isOpen) {
-                    if(this.delay) {
-                        this.left2right = false
-                        this.position = 'center'
-                    }
-                    setTimeout(() => {
-                        this.position = 'left'
-                        this.isOpen = false
-                    }, 100)
-                }
-                else {
-                    if(this.delay) {
-                        this.left2right = true
-                        this.position = 'center'
-                    }
-                    setTimeout(() => {
-                        this.position = 'right'
-                        this.isOpen = true
-                    },100)
+                if(this.position === 'left') {
+                    this.position = 'right'
+                    this.$emit('change', true)
+                } else {
+                    this.position = 'left'
+                    this.$emit('change', false)
                 }
             }
+        },
+        mounted() {
+            //计算滑块大小
+            let height = this.$el.clientHeight
+            let width = this.$el.clientWidth
+            let block = this.$el.querySelector('.block')
+            block.style.height = height - 4 + 'px'
+            block.style.width = height - 4 + 'px'
+            this.left = width - height + 4 - 2 + 'px'
         }
     }
 </script>
@@ -75,12 +66,11 @@
     .switch_box{
         width: 65px;
         height: 30px;
-        border-radius: 20px;
+        border-radius: 50px;
         cursor: pointer;
         position: relative;
         display: flex;
         align-items: center;
-        transition: color 2s ease;
     }
     .disabled{
         cursor: not-allowed;
@@ -90,27 +80,9 @@
     .block{
         height: 26px;
         width: 26px;
+        border-radius: 50%;
         background: #f5f1f1;
-        transition: all 1s ease;
+        transition: all 200ms linear;
         position: absolute;
-    }
-    .on_left{
-        border-radius: 100%;
-        left: 2px;
-    }
-    .on_center{
-        width: 35px;
-        transition: all 100ms ease;
-        border-radius: 20px;
-    }
-    .on_center_left{
-        left: 15px;
-    }
-    .on_center_right{
-        right: 15px;
-    }
-    .on_right{
-        border-radius: 100%;
-        right: 2px;
     }
 </style>

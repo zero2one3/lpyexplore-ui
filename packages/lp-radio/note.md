@@ -5,5 +5,5 @@ v-model | 双向绑定值
 id | input框的id属性
 name | input框的name属性 
 val | input框对应的值
-type(radio样式) | ''(默认)/border/rectangle
+type(radio样式) | ''(默认)/border
 disabled | false(默认)/true

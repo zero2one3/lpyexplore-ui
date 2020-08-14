@@ -13,15 +13,10 @@
 
         <div class="content">
 
-            <div class="icon"
-                 :class="{
-                    'icon_success': type == 'success',
-                    'icon_info': type == 'info',
-                    'icon_err': type == 'err',
-                    'icon_warning': type == 'warning'
-                 }">
+            <i class="icon fa"
+               :class="[`lp-alert-${type}`]">
 
-            </div>
+            </i>
 
             <div class="txt"
                  :class="{
@@ -30,7 +25,6 @@
                     'txt_err': type == 'err',
                     'txt_warning': type == 'warning'
                  }">
-
                 {{content}}
             </div>
         </div>
@@ -52,6 +46,23 @@
             }
         },
         mounted() {
+            let icon = this.$el.querySelector('.icon')
+            let name = ''
+            switch (this.type) {
+                case "info":
+                    name = 'fa-info-circle'
+                    break;
+                case "success":
+                    name = 'fa-check-circle'
+                    break;
+                case "err":
+                    name = 'fa-times-circle'
+                    break;
+                case "warning":
+                    name = 'fa-exclamation-triangle'
+                    break;
+            }
+            icon.className = this.$addClass(icon.className, name)
 
             setTimeout(() => {
                 this.isShow = true
@@ -117,49 +128,42 @@
     .icon{
         height: 20px;
         width: 20px;
-        margin-left: 10px;
+        margin-left: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-    .icon_info{
-        background: url("assets/info.png") no-repeat;
-        background-size: 100% 100%;
-    }
-    .icon_success{
-        background: url("assets/success.png") no-repeat;
-        background-size: 100% 100%;
-    }
-    .icon_warning{
-        background: url("assets/warning.png") no-repeat;
-        background-size: 100% 100%;
-    }
-    .icon_err{
-        background: url("assets/err.png") no-repeat;
-        background-size: 100% 100%;
-    }
+
     .txt{
-        margin-left: 5px;
+        margin-left: 10px;
+        font-size: 15px;
     }
-    .txt_info{
-        color: #666;
+    .txt_info, .lp-alert-info{
+        color: #909399;
     }
-    .txt_success{
+    .txt_success, .lp-alert-success{
         color: #3BC965;
     }
-    .txt_warning{
-        color: #f6d24e;
+    .txt_warning, .lp-alert-warning{
+        color: #eea832;
     }
-    .txt_err{
-        color: #FF3333;
+    .txt_err, .lp-alert-err{
+        color: #de3c3c;
     }
     .info{
-        background-color: #eee;
+        background-color: #eBEEF5;
+        border: 1px solid #e5e8ee;
     }
     .success{
         background-color: #e7f6e3;
+        border: 1px solid #e3f1df
     }
     .err{
-        background-color: #fcdbdb;
+        background-color: #f6ecec;
+        border: 1px solid #f5e3e3;
     }
     .warning{
-        background-color: #fdf7ce;
+        background-color: #f8f2ec;
+        border: 1px solid #f3e5da;
     }
 </style>

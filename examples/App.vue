@@ -93,59 +93,100 @@
 
     <!--      lp-alert组件        -->
     <div id="lp-alert" style="margin-top: 20px">
-      <lp-button @click="alertShow" type="success">出现弹框</lp-button>
+      <lp-button @click="alertShowSuccess" type="success" style="margin-left: 20px">出现弹框</lp-button>
+      <lp-button @click="alertShow" style="margin-left: 20px">出现弹框</lp-button>
+      <lp-button @click="alertShowWarning" type="warning" style="margin-left: 20px">出现弹框</lp-button>
+      <lp-button @click="alertShowDanger" type="danger" style="margin-left: 20px">出现弹框</lp-button>
     </div>
 
     <!--      lp-switch组件        -->
     <div id="lp-switch" style="margin-top: 20px">
       <lp-switch
-              :disabled="false"
-              :open="false"
-              :delay="true">
+                 class="switch">
       </lp-switch>
     </div>
 
+    <!--      lp-dialog组件        -->
+    <div id="lp-confirm" style="margin-top: 20px">
+      <lp-button @click="confirmShow" class="confirm">出现对话弹框</lp-button>
+    </div>
 
-    <button @click="confirmShow">出现确认弹框</button>
+    <!--      lp-rate组件        -->
+    <div id="lp-rate" style="margin-top: 20px">
+      <lp-rate textType="grade"
+               :rate="3"
+               :disabled="isDisabled"
+               @change="change">
 
-
-    <lp-rate textType="grade"
-             :rate="3"
-             :disabled="isDisabled"
-             @rateChange="change">
-
-    </lp-rate>
-
-    <button @click="loadingClick" class="loading">正在加载</button>
-
-    <lp-tabs :disabled="[0,4]">
-      <div slot="content0" class="contents">首页内容</div>
-      <div slot="content1" class="contents">文章信息内容</div>
-      <div slot="content2" class="contents">用户评论内容</div>
-      <div slot="content3" class="contents">联系我们内容</div>
-      <div slot="content4" class="contents">官方合作微信群内容</div>
-    </lp-tabs>
+      </lp-rate>
+    </div>
 
 
-    <lp-input :disabled="false"
-              v-model="lpy"
-              :clearable="true"
-              size="big">
+    <!--      lp-loading组件        -->
+    <div id="lp-loading" style="margin-top: 20px">
+      <lp-button @click="loadingClick"
+                 class="loading"
+                 type="warning"
+                 :disabled="loadingDisabled">按钮加载
+      </lp-button>
+      <lp-button style="margin-left: 20px"
+                 type="danger"
+                 @click="fullScreenLoading">全屏加载
+      </lp-button>
+    </div>
 
-    </lp-input>
 
-    <lp-input v-model="lpy"
-              type="password"
-              :showPassword="true">
+    <!--      lp-tabs组件        -->
+    <div id="lp-tabs" style="margin-top: 20px">
+      <lp-tabs :disabled="[0,4]">
+        <div slot="content0" class="contents">首页内容</div>
+        <div slot="content1" class="contents">文章信息内容</div>
+        <div slot="content2" class="contents">用户评论内容</div>
+        <div slot="content3" class="contents">联系我们内容</div>
+        <div slot="content4" class="contents">官方合作微信群内容</div>
+      </lp-tabs>
+    </div>
 
-    </lp-input>
 
-    <lp-radio v-model="picked" val="0" style="margin-left: 10px" type="border">男</lp-radio>
-    <lp-radio v-model="picked" val="1" style="margin-left: 10px">女</lp-radio>
-    <lp-radio v-model="picked" val="3" style="margin-left: 10px" :disabled="true">未知</lp-radio>
-    <div>pick的值为：{{ picked }}</div>
-    <button @click="toggle">转换</button>
+    <!--      lp-input组件        -->
+    <div id="lp-input" style="margin-top: 20px">
+      <lp-input :disabled="false"
+                v-model="lpy"
+                :clearable="true"
+                size="big">
+      </lp-input>
 
+      <lp-input v-model="lpy"
+                type="password"
+                :showPassword="true"
+                style="margin-top: 20px">
+      </lp-input>
+    </div>
+
+
+    <!--      lp-radio组件        -->
+    <div id="lp-radio" style="margin-top: 20px">
+      <div>
+        <lp-radio v-model="picked" val="0" style="margin-left: 10px" type="border">男</lp-radio>
+        <lp-radio v-model="picked" val="1" style="margin-left: 10px" type="border">女</lp-radio>
+        <lp-radio v-model="picked" val="3" style="margin-left: 10px" type="border">未知</lp-radio>
+        <div>pick的值为：{{ picked }}</div>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <lp-radio v-model="which" val="0" style="margin-left: 10px">男</lp-radio>
+        <lp-radio v-model="which" val="1" style="margin-left: 10px">女</lp-radio>
+        <lp-radio v-model="which" val="3" style="margin-left: 10px">未知</lp-radio>
+        <div>which：{{ which }}</div>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <lp-radio val="0" style="margin-left: 10px" disabled type="border">男</lp-radio>
+        <lp-radio val="1" style="margin-left: 10px" disabled type="border">女</lp-radio>
+        <lp-radio val="3" style="margin-left: 10px" disabled type="border">未知</lp-radio>
+      </div>
+
+    </div>
 
   </div>
 </template>
@@ -167,7 +208,9 @@
                   {title: '请输入标题信息43'},
                 ],
                 isDisabled: false,
+                loadingDisabled: false,
                 picked: '1',
+                which: '',
                 lpy: '哈哈'
 
             }
@@ -193,10 +236,27 @@
               }
             },
             alertShow() {
+              this.$alert({
+                type: 'info'
+              })
+            },
+            alertShowSuccess() {
                 this.$alert({
                   type: 'success',
-                  content: '恭喜你，注册成功'
+                  content: '这是一条成功信息'
                 })
+            },
+            alertShowWarning() {
+              this.$alert({
+                type: 'warning',
+                content: '这是一条警告信息'
+              })
+            },
+            alertShowDanger() {
+              this.$alert({
+                type: 'err',
+                content: '这是一条错误信息'
+              })
             },
             confirmShow() {
                 this.$confirm()
@@ -229,17 +289,32 @@
               .then(() => {
                 ret.close()
               })
+              .catch(() => {
+                this.loadingDisabled = true
+              })
 
             },
-          toggle() {
-              if(this.picked == '0') {
-                this.picked = '1'
-              }
-              else {
-                this.picked = '0'
+          fullScreenLoading() {
+              let ret = this.$loading({
+                content: '正在努力加载中',
+                fullScreen: true
+              })
+              let time = 5
 
-              }
-          }
+              setInterval(() => {
+                if(time > 0) {
+                  time --
+                  this.$alert({
+                    type: 'warning',
+                    lastTime: 1000,
+                    content: `加载动画${time}秒后将关闭`
+                  })
+                  return;
+                }
+                ret.close()
+              }, 1000)
+          },
+
 
 
         }
@@ -259,6 +334,9 @@
   }
   .lp-input{
     width: 300px;
+  }
+  #lp-confirm .confirm{
+    width: 120px;
   }
 
 </style>

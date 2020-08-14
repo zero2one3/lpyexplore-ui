@@ -76,7 +76,7 @@
                 let element = event.toElement
                 if(element.nodeName != 'SPAN') return;
                 this.currentStar = Number(element.className.match(/star(\d)/)[1])
-                this.$emit('rateChange', this.temporary)
+                this.$emit('change', this.temporary)
             }
         },
         updated() {

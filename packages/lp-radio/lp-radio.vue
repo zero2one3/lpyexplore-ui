@@ -1,10 +1,8 @@
 <template>
     <span class="radio-group"
-          :class="[
+          :class="[   `lp-radio-${type}`,
                       {'selected': selected},
                       {'disabled': disabled},
-                      {'border': type === 'border'},
-                      {'rectangle': type === 'rectangle'},
                   ]"
           @click="radioClick">
 
@@ -16,7 +14,6 @@
                :name="name"
                :value="val"
                v-model="valueChange">
-
         <label>
             <slot>默认选项</slot>
         </label>
@@ -105,16 +102,12 @@
         filter: alpha(opacity=60);
     }
     /*      border样式      */
-    span.border {
+    span.lp-radio-border {
         padding: 10px 20px 10px 15px;
         border: 1px solid #c9c8c8;
     }
-    span.selected.border{
+    span.selected.lp-radio-border{
         border: 1px solid #3da3dc;
-    }
-    /*      rectangle样式      */
-    span.rectangle{
-
     }
     span.selected label{
         color: #3da3dc;
