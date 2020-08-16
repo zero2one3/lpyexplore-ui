@@ -6,12 +6,19 @@
                 {'is-round': round},
                 {'is-circle': circle},
                 {'is-disabled': disabled},
-                {'is-plain': plain}
+                {'is-plain': plain},
+                {'is-loading': loading}
             ]"
             @click="btnClick">
-        <span>
+        <span v-show="loading" class="is-loading">
+            <i class="fa fa-spinner fa-spin"/>
+            <span style="margin-left: 5px" v-show="loading && !circle">加载中</span>
+        </span>
+        <span v-show="!loading">
             <slot>{{ circle? '查': 'lp-button' }}</slot>
         </span>
+
+
     </button>
 
 </template>
@@ -39,16 +46,19 @@
             disabled: {
                 type: Boolean,
                 default: false
+            },
+            loading: {
+                type: Boolean,
+                default: false
             }
 
         },
         methods: {
             btnClick(e) {
-                if(this.disabled) return;
+                if(this.disabled || this.loading) return;
                 this.$emit('click', e)
             }
-        },
-
+        }
 
 
     }
@@ -71,13 +81,14 @@
         -ms-user-select: none;
         -moz-user-select: none;
         text-align: center;
+        position: relative;
     }
 
-    .lp-button-container:not(.is-disabled):hover{
+    .lp-button-container:not(.is-disabled):not(.is-loading):hover{
         background: rgba(162, 222, 252, 0.5);
         color: #1292d9;
     }
-    .lp-button-container:not(.is-disabled):active{
+    .lp-button-container:not(.is-disabled):not(.is-loading):active{
         border: 1px solid #3e9fd4;
     }
 
@@ -86,12 +97,12 @@
         color: white;
         border: 1px solid #17af17;
     }
-    .lp-button-success:not(.is-disabled):hover{
+    .lp-button-success:not(.is-disabled):not(.is-loading):hover{
         background: #19c119;
         color: white;
         border: 1px solid #19c119;
     }
-    .lp-button-success:not(.is-disabled):active{
+    .lp-button-success:not(.is-disabled):not(.is-loading):active{
         background: #22b422;
     }
 
@@ -100,12 +111,12 @@
         color: white;
         border: 1px solid rgba(222, 7, 7, .8);
     }
-    .lp-button-danger:not(.is-disabled):hover{
+    .lp-button-danger:not(.is-disabled):not(.is-loading):hover{
         background: rgba(246, 76, 76, 1);
         color: white;
         border: 1px solid rgba(246, 76, 76, 1);
     }
-    .lp-button-danger:not(.is-disabled):active{
+    .lp-button-danger:not(.is-disabled):not(.is-loading):active{
         background: rgba(238, 0, 0, .8);
     }
 
@@ -114,12 +125,12 @@
         color: white;
         border: 1px solid #0c94de;
     }
-    .lp-button-primary:not(.is-disabled):hover{
+    .lp-button-primary:not(.is-disabled):not(.is-loading):hover{
         background: #0e9fef;
         color: white;
         border: 1px solid #0e9fef;
     }
-    .lp-button-primary:not(.is-disabled):active{
+    .lp-button-primary:not(.is-disabled):not(.is-loading):active{
         background: #0b8cd2;
     }
 
@@ -128,21 +139,21 @@
         color: white;
         border: 1px solid #f39a34;
     }
-    .lp-button-warning:not(.is-disabled):hover{
+    .lp-button-warning:not(.is-disabled):not(.is-loading):hover{
         background: #fca74b;
         color: white;
         border: 1px solid #fca74b;
     }
-    .lp-button-warning:not(.is-disabled):active{
+    .lp-button-warning:not(.is-disabled):not(.is-loading):active{
         background: #f39a34;
     }
 
     /*  -------------plain---------------  */
-    .lp-button-container.is-plain:not(.is-disabled):hover{
+    .lp-button-container.is-plain:not(.is-disabled):not(.is-loading):hover{
         background: white;
         border: 1px solid #3e9fd4;
     }
-    .lp-button-container.is-plain:not(.is-disabled):active{
+    .lp-button-container.is-plain:not(.is-disabled):not(.is-loading):active{
         border: 1px solid #3283ac;
         color: #3283ac;
     }
@@ -152,12 +163,12 @@
         color: #61b836;
         border: 1px solid rgba(127, 201, 90, .5);
     }
-    .lp-button-success.is-plain:not(.is-disabled):hover{
+    .lp-button-success.is-plain:not(.is-disabled):not(.is-loading):hover{
         background: #19c119;
         color: white;
         border: 1px solid #19c119;
     }
-    .lp-button-success.is-plain:not(.is-disabled):active{
+    .lp-button-success.is-plain:not(.is-disabled):not(.is-loading):active{
         background: #22b422;
     }
 
@@ -166,12 +177,12 @@
         color: rgba(224, 63, 63, .9);
         border: 1px solid rgba(222, 7, 7, .2);
     }
-    .lp-button-danger.is-plain:not(.is-disabled):hover{
+    .lp-button-danger.is-plain:not(.is-disabled):not(.is-loading):hover{
         background: rgba(246, 76, 76, 1);
         color: white;
         border: 1px solid rgba(246, 76, 76, 1);
     }
-    .lp-button-danger.is-plain:not(.is-disabled):active{
+    .lp-button-danger.is-plain:not(.is-disabled):not(.is-loading):active{
         background: rgba(238, 0, 0, .8);
     }
 
@@ -180,12 +191,12 @@
         color: #0c94de;
         border: 1px solid rgba(12, 148, 222, .35);
     }
-    .lp-button-primary.is-plain:not(.is-disabled):hover{
+    .lp-button-primary.is-plain:not(.is-disabled):not(.is-loading):hover{
         background: #0e9fef;
         color: white;
         border: 1px solid #0e9fef;
     }
-    .lp-button-primary.is-plain:not(.is-disabled):active{
+    .lp-button-primary.is-plain:not(.is-disabled):not(.is-loading):active{
         background: #0b8cd2;
     }
 
@@ -194,12 +205,12 @@
         color: #f39a34;
         border: 1px solid rgba(243, 154, 52, .4);
     }
-    .lp-button-warning.is-plain:not(.is-disabled):hover{
+    .lp-button-warning.is-plain:not(.is-disabled):not(.is-loading):hover{
         background: #fca74b;
         color: white;
         border: 1px solid #fca74b;
     }
-    .lp-button-warning.is-plain:not(.is-disabled):active{
+    .lp-button-warning.is-plain:not(.is-disabled):not(.is-loading):active{
         background: #f39a34;
     }
 
@@ -214,11 +225,20 @@
         width: 45px;
     }
 
-    /*  ------------- disabled ---------------  */
-    .lp-button-container.is-disabled{
+    /*  ------------- disabled / loading ---------------  */
+    .lp-button-container.is-disabled, .lp-button-container.is-loading{
         cursor: not-allowed;
         opacity: .6;
         filter:alpha(opacity=60)
     }
 
+    /*  ------------- loading ---------------  */
+
+    span.is-loading{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 </style>

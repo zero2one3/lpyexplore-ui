@@ -1,21 +1,25 @@
 <template>
-    <div class="loading_container" :style="{'position': fullScreen? 'fixed': 'absolute'}">
+    <div class="loading_container"
+         :style="{
+            'position': fullScreen? 'fixed': 'absolute'
+         }"
+         :class="[
+             {'is-bubble': type === 'bubble'},
+             {'is-line': type === 'line'}
+         ]">
 
-        <div class="content">
+        <div class="content" :class="{'small': small}">
 
-            <div class="circle" :style="{'width': width, 'height': height}">
-                <svg t="1596793383301"
-                     class="icon"
-                     viewBox="0 0 1024 1024"
-                     version="1.1"
-                     mlns="http://www.w3.org/2000/svg"
-                     p-id="1478"
-                     width="100%"
-                     height="100%">
-                    <path d="M827.211075 221.676536m-54.351151 0a54.351151 54.351151 0 1 0 108.702302 0 54.351151 54.351151 0 1 0-108.702302 0Z" p-id="1479" fill="#8a8a8a"></path><path d="M940.905298 515.399947m-67.086951 0a67.086952 67.086952 0 1 0 134.173903 0 67.086952 67.086952 0 1 0-134.173903 0Z" p-id="1480" fill="#8a8a8a"></path><path d="M829.755035 810.595334m-78.974766 0a78.974766 78.974766 0 1 0 157.949532 0 78.974766 78.974766 0 1 0-157.949532 0Z" p-id="1481" fill="#8a8a8a"></path><path d="M534.831643 928.64149m-91.48657 0a91.486571 91.486571 0 1 0 182.973141 0 91.486571 91.486571 0 1 0-182.973141 0Z" p-id="1482" fill="#8a8a8a"></path><path d="M243.780191 805.955407m-101.902408 0a101.902408 101.902408 0 1 0 203.804816 0 101.902408 101.902408 0 1 0-203.804816 0Z" p-id="1483" fill="#8a8a8a"></path><path d="M536.623615 107.870315m-107.854315 0a107.854315 107.854315 0 1 0 215.70863 0 107.854315 107.854315 0 1 0-215.70863 0Z" p-id="1484" fill="#8a8a8a"></path><path d="M243.780191 224.220497m-107.854315 0a107.854315 107.854315 0 1 0 215.70863 0 107.854315 107.854315 0 1 0-215.70863 0Z" p-id="1485" fill="#8a8a8a"></path><path d="M129.429978 512.008m-102.766395 0a102.766394 102.766394 0 1 0 205.532789 0 102.766394 102.766394 0 1 0-205.532789 0Z" p-id="1486" fill="#8a8a8a">
-                    </path>
-                </svg>
+            <div class="circle">
+                <i class="fa fa-spin"
+                   :class="[
+                     {'is-bubble': type === 'bubble'},
+                     {'is-line': type === 'line'},
+                     {'fa-spinner': type === 'bubble'},
+                     {'fa-circle-o-notch': type === 'line'}
+                   ]"/>
             </div>
+
             <div class="txt" v-if="content != ''">{{ content }}</div>
 
         </div>
@@ -28,28 +32,16 @@
         name: "lp-loading",
         data() {
           return {
-              fullScreen: true,
               content: '',
-              width: '42px',
-              height: '42px'
+              type: 'bubble',
+              fullScreen: true,
+              small: false
           }
         },
         beforeCreate() {
             this.$EventBus.$emit('loadingClose', this)
         },
-        mounted() {
 
-            //旋转动画
-            let loading_icon = this.$el.querySelector('.icon')
-            let deg = 0
-            setInterval(() => {
-                deg ++
-                loading_icon.style.transform = `rotate(${deg}deg)`
-            }, 5)
-
-            this.$EventBus.isLoading = this
-
-        },
 
     }
 </script>
@@ -63,20 +55,39 @@
         bottom: 0;
         display: flex;
         align-items: center;
-        background: rgba(238, 236, 236, 0.8);
         z-index: 998;
+    }
+    .loading_container.is-bubble{
+        background: rgba(255, 255, 255, .9);
+    }
+    .loading_container.is-line{
+        background: rgba(0, 0, 0, .65);
     }
     .content{
         width: 100%;
         display: inline-block;
     }
+    .content.small .circle i{
+        font-size: 13px;
+    }
+    .content.small .txt{
+        padding-top: 3px;
+        font-size: 12px;
+    }
     .circle{
         margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .circle i{
+        font-size: 22px;
+        color: #0baa0b;
     }
     .txt{
         text-align: center;
         padding-top: 10px;
-        color: #e097a3;
-        font-size: 1.2rem;
+        color: #0baa0b;
+        font-size: 15px;
     }
 </style>

@@ -2,14 +2,12 @@
 
 属性参数     | 可选值
 -------- | ----- 
-fullScreen | true(默认)/false
 content | ''(默认)
-location | null
+type | bubble(默认)/line
+location / 全屏(默认)
 
 let ret = this.$loading({
-    fullScreen: 'false',
-    content: '正在努力加载',
-    location: this.$el.querySelector('.loading')
+    content: '正在努力加载'
 })
 
 ret.close()

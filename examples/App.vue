@@ -124,11 +124,13 @@
 
     <!--      lp-loading组件        -->
     <div id="lp-loading" style="margin-top: 20px">
+
       <lp-button @click="loadingClick"
                  class="loading"
                  type="warning"
                  :disabled="loadingDisabled">按钮加载
       </lp-button>
+
       <lp-button style="margin-left: 20px"
                  type="danger"
                  @click="fullScreenLoading">全屏加载
@@ -211,7 +213,7 @@
                 loadingDisabled: false,
                 picked: '1',
                 which: '',
-                lpy: '哈哈'
+                lpy: '哈哈',
 
             }
         },
@@ -276,11 +278,7 @@
             },
             loadingClick() {
 
-              let ret = this.$loading({
-                content: '',
-                fullScreen: false,
-                location: this.$el.querySelector('.loading')
-              })
+              let ret = this.$loading()
 
               this.$confirm({
                 content: '确定关闭加载动画吗？',
@@ -294,26 +292,14 @@
               })
 
             },
-          fullScreenLoading() {
-              let ret = this.$loading({
-                content: '正在努力加载中',
-                fullScreen: true
+          fullScreenLoading(e) {
+              this.$loading({
+                content: '加载中',
+                type: 'line',
+                location: e.target
               })
-              let time = 5
-
-              setInterval(() => {
-                if(time > 0) {
-                  time --
-                  this.$alert({
-                    type: 'warning',
-                    lastTime: 1000,
-                    content: `加载动画${time}秒后将关闭`
-                  })
-                  return;
-                }
-                ret.close()
-              }, 1000)
           },
+
 
 
 

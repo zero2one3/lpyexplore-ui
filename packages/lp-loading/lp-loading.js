@@ -11,16 +11,16 @@ export default function (Vue) {
             console.error('Please enter an object as a parameter')
             return;
         }
-        let {fullScreen = true, content = '', location = null} = option
+        let {content = '', type = 'bubble', location = document.getElementById('app')} = option
 
-        let element = document.getElementById('app')
-
-        loading.fullScreen = fullScreen
         loading.content = content
+        loading.type = type
 
-        if(location && !fullScreen) {
-            element = location
+        if(location !== document.getElementById('app')) {
+            loading.fullScreen = false
         }
+
+        let element = location
 
         //适配
         let width = element.clientWidth
@@ -29,17 +29,8 @@ export default function (Vue) {
         if(width < height) {
             min = width
         }
-        if(min <= 21) {
-            loading.width = '15px'
-            loading.height = '15px'
-        }
-        else if(min <= 46) {
-            loading.width = '22px'
-            loading.width = '22px'
-        }
-        else {
-            loading.width = '42px'
-            loading.width = '42px'
+        if(min <= 25) {
+            loading.small = true
         }
 
         //挂载
