@@ -1,8 +1,8 @@
 {
-  "name": "lpUi",
-  "version": "0.1.0",
+  "name": "lpyexplore-ui",
+  "version": "1.0.1",
   "private": false,
-  "main": "",
+  "main": "dist/lpUi.umd.min.js",
   "author": {
     "name": "Lpyexplore"
   },

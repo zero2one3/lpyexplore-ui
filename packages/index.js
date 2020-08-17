@@ -16,6 +16,8 @@ import lp_loading from "./lp-loading/lp-loading.js";
 import {removeClass} from "./tools/operateClassName/removeClass";
 import {addClass} from "./tools/operateClassName/addClass";
 import {updateClass} from "./tools/operateClassName/updateClass";
+//字体
+import './tools/font-awesome/css/font-awesome.min.css'
 
 const components = [
     lp_button,

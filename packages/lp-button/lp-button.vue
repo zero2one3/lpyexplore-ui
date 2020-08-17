@@ -54,9 +54,9 @@
 
         },
         methods: {
-            btnClick(e) {
+            btnClick() {
                 if(this.disabled || this.loading) return;
-                this.$emit('click', e)
+                this.$emit('click', this.$el)
             }
         }
 

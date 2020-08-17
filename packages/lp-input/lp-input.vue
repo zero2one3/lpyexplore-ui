@@ -37,7 +37,7 @@
         props: {
             placeholder: {
                 type: String,
-                default: '请输入内容'
+                default: ''
             },
             focus: {
                 type: Boolean,
