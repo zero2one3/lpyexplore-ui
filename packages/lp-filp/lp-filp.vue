@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="front slid" :class="[fontBg? fontBg: '', {'is-center': center}]">
+        <div class="front slid" :class="[frontBg? frontBg: '', {'is-center': center}]">
 
             <slot name="front">正面内容</slot>
 
@@ -19,9 +19,9 @@
         name: "lp-filp",
         props: {
             //卡片背面背景颜色
-            fontBg: {
+            frontBg: {
                 type: String,
-                default: 'pink'
+                default: ''
             },
             //卡片正面背景颜色
             backBg: {
@@ -58,6 +58,8 @@
         transform-style: preserve-3d;
         border-radius: 5px;
         box-sizing: border-box;
+        background: white;
+        border: 1px solid #e2e2e2;
     }
     .slid.is-center{
         display: flex;
@@ -79,14 +81,18 @@
     /*背景样式*/
     .green{
         background-image: linear-gradient(to right bottom, #c4e759, #6de195);
+        border: 1px solid #c4e759;
     }
     .lavender{
         background-image: linear-gradient(to right bottom, #deb0df, #ae6bfe);
+        border: 1px solid #deb0df;
     }
     .pink{
         background-image: linear-gradient(to left bottom, #fdeb82, #f78fad);
+        border: 1px solid #fdeb82;
     }
     .blue{
         background-image: linear-gradient(to left bottom, #41d8dd, #5583ee);
+        border: 1px solid #41d8dd;
     }
 </style>

@@ -50,20 +50,22 @@
 
     <!--      lp-filp组件        -->
     <div id="lp-filp" style="margin-top: 20px">
-      <lp-filp fontBg="lavender">
+      <lp-filp frontBg="lavender">
 
         <span slot="front">我是正面的内容</span>
         <span slot="back">我是背面的内容</span>
 
       </lp-filp>
 
-      <lp-filp style="margin-left: 20px" backBg="green">
+      <lp-filp style="margin-left: 20px" frontBg="pink" backBg="green">
 
       </lp-filp>
 
-      <lp-filp style="margin-left: 20px" fontBg="green" backBg="blue"></lp-filp>
+      <lp-filp style="margin-left: 20px" frontBg="green" backBg="blue">
 
-      <lp-filp style="margin-left: 20px" fontBg="blue" backBg="lavender"></lp-filp>
+      </lp-filp>
+
+      <lp-filp style="margin-left: 20px" frontBg="blue" backBg="lavender"></lp-filp>
 
     </div>
 
@@ -101,9 +103,7 @@
 
     <!--      lp-switch组件        -->
     <div id="lp-switch" style="margin-top: 20px">
-      <lp-switch
-                 class="switch">
-      </lp-switch>
+      <lp-switch class="switch" @change="tryChange" loading/>
     </div>
 
     <!--      lp-dialog组件        -->
@@ -215,9 +215,20 @@
                 which: '',
                 lpy: '哈哈',
 
+
             }
         },
         methods: {
+            tryChange(value, obj) {
+              this.$confirm()
+              .then(() => {
+                obj.success()
+              })
+              .catch(() => {
+                obj.err()
+              })
+
+            },
             btnClick() {
                 this.disabled = true
             },
@@ -324,5 +335,4 @@
   #lp-confirm .confirm{
     width: 120px;
   }
-
 </style>

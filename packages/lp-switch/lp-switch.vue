@@ -4,8 +4,15 @@
          @click="switchClick"
          :style="{'background': position === 'right'? open_color: close_color}">
 
-        <div class="block"
-             :style="{'left': position === 'left'? '2px': left}">
+        <div class="inner-box">
+
+            <div class="block"
+                 :style="{'left': position === 'left'? '2px': left}">
+
+                <i class="fa fa-spinner fa-spin" v-show="loading && isLoading && position === 'right'"/>
+
+            </div>
+
         </div>
 
     </div>
@@ -17,7 +24,17 @@
         data() {
             return {
                 position: this.open? 'right': 'left',
-                left: null
+                left: null,
+                isLoading: false,
+                obj: {
+                    success: () => {
+                        this.isLoading = false
+                    },
+                    err: () => {
+                        this.position = 'left'
+                        this.isLoading = false
+                    }
+                }
             }
         },
         props: {
@@ -36,17 +53,30 @@
             disabled: {
                 type: Boolean,
                 default: false
+            },
+            loading: {
+                type: Boolean,
+                default: false
             }
         },
         methods: {
             switchClick() {
-                if(this.disabled == true) return;
+                if(this.disabled || (this.loading && this.isLoading)) return;
                 if(this.position === 'left') {
+                    if(this.loading) {
+                        this.isLoading = true
+                        this.position = 'right'
+                        this.$emit('change', 'loading', this.obj)
+                        return;
+                    }
                     this.position = 'right'
-                    this.$emit('change', true)
+                    this.$emit('change', 'open')
                 } else {
                     this.position = 'left'
-                    this.$emit('change', false)
+                    if(this.loading) {
+                        this.isLoading = false
+                    }
+                    this.$emit('change', 'close')
                 }
             }
         },
@@ -69,6 +99,11 @@
         border-radius: 50px;
         cursor: pointer;
         position: relative;
+        display: inline-block;
+    }
+    .inner-box{
+        width: 100%;
+        height: 100%;
         display: flex;
         align-items: center;
     }
@@ -84,5 +119,11 @@
         background: #f5f1f1;
         transition: all 200ms linear;
         position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    i{
+        color: #bbcbc3;
     }
 </style>

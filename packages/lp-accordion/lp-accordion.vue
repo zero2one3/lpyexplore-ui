@@ -9,14 +9,13 @@
                 <div :style="{'fontSize': TfontSize}" class="title">{{item.title}}</div>
                 <div class="icon-box">
                     <i class="icon fa fa-angle-right" v-if="hasIcon"
-                       :style="{'transform': current_title == index? 'rotate(90deg)': ''}">
-
-                    </i>
+                       :style="{'transform': current_title == index? 'rotate(90deg)': ''}"/>
                 </div>
             </div>
 
             <ul class="ac_plate"
-                :style="{'display': current_title == index?'inline-block':'none', 'fontSize': CfontSize}">
+                :class="[{'is-show': current_title === index}]"
+                :style="{'fontSize': CfontSize}">
                 <li v-for="(each_li, i) in item.content_list"
                     :key="i"
                     :style="{'marginTop':i==0?'':'-1px', 'height': liHeight, 'lineHeight': liHeight}"
@@ -154,8 +153,11 @@
         list-style: none;
         margin: 0;
         padding: 0;
-        display: inline-block;
+        display: block;
+        overflow: hidden;
         width: 100%;
+        max-height: 0;
+        transition: max-height .2s;
     }
     .ac_plate li{
         height: 50px;
@@ -176,4 +178,9 @@
         text-decoration: none;
         color: #666;
     }
+    .is-show{
+        max-height: 100em;
+        transition: max-height 1s;
+    }
+
 </style>
