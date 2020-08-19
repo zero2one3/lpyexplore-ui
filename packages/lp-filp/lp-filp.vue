@@ -26,11 +26,11 @@
             //卡片正面背景颜色
             backBg: {
                 type: String,
-                default: 'pink'
+                default: ''
             },
             center: {
                 type: Boolean,
-                default: true
+                default: false
             }
         }
     }

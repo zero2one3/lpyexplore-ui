@@ -10,7 +10,7 @@ export default function (Vue) {
             console.error('Please enter an object as a parameter')
             return;
         }
-        let {title = '提示信息', content = '这是提示内容', center = true} = option
+        let {title = '提示信息', content = '这是提示内容', center = false} = option
         confirm.title = title
         confirm.content = content
         confirm.center = center

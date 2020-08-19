@@ -104,6 +104,7 @@
     <!--      lp-switch组件        -->
     <div id="lp-switch" style="margin-top: 20px">
       <lp-switch class="switch" @change="tryChange" loading/>
+      <lp-switch></lp-switch>
     </div>
 
     <!--      lp-dialog组件        -->

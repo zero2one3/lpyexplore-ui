@@ -7,10 +7,6 @@ title | 标题信息
 content  | 内容信息
 center | 文字是否居中，true(默认)/false
 
-插槽     | 含义
--------- | ----- 
-匿名插槽 | 提示信息部分
-
 
 this.$confirm({
     title: '提示',

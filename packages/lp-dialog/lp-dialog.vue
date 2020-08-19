@@ -1,27 +1,27 @@
 <template>
-    <div class="dialog_box">
+    <div class="dialog-box">
 
-        <div class="box">
+        <div class="dialog-box-inner">
 
-            <div class="title">
+            <div class="dialog-box-title">
                 <div class="title-box">
                     <span class="txt">{{ title }}</span>
                     <span class="close" @click="closeDialog(false)">&#10005;</span>
                 </div>
             </div>
 
-            <div class="content">
+            <div class="dialog-box-content">
 
                 <div class="content-box" :class="[{'center': center}]">
                     <slot>
-                        <span>{{ content }}</span>
+                        <span v-html="content"/>
                     </slot>
                 </div>
 
             </div>
 
-            <div class="btn">
-                <div class="btn-box">
+            <div class="dialog-box-btn">
+                <div class="dialog-box-btn-box">
 
                     <lp-button class="btn-close"
                                @click.native="closeDialog(false)">取消</lp-button>
@@ -45,7 +45,7 @@
             return {
                 title: '提示信息',
                 content: '这是提示内容',
-                center: true,
+                center: false,
             }
         },
         methods: {
@@ -61,7 +61,7 @@
 </script>
 
 <style scoped>
-    .dialog_box{
+    .dialog-box{
         background: rgba(0, 0, 0, 0.4);
         position: fixed;
         top: 0;
@@ -70,7 +70,7 @@
         bottom: 0;
         z-index: 999;
     }
-    .box{
+    .dialog-box-inner{
         border-radius: 5px;
         background: white;
         width: 400px;
@@ -80,7 +80,7 @@
         top: 50%;
         transform: translate(-50%, -100%);
     }
-    .title{
+    .dialog-box-title{
         height: 70px;
         display: flex;
         justify-content: center;
@@ -108,7 +108,7 @@
     .title-box .close:hover{
         color: #6495ED;
     }
-    .content{
+    .dialog-box-content{
         height: 110px;
     }
     .content-box{
@@ -121,15 +121,15 @@
         font-size: 15px;
         color: #656060;
     }
-    .content .center{
+    .content-box.center{
         display: flex;
         align-items: center;
         justify-content: center;
     }
-    .btn{
+    .dialog-box-btn{
         height: 70px;
     }
-    .btn-box{
+    .dialog-box-btn-box{
         width: 360px;
         height: 70px;
         margin: 0 auto;
