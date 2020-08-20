@@ -1,14 +1,12 @@
 <template>
     <div class="loading_container"
-         :style="{
-            'position': fullScreen? 'fixed': 'absolute'
-         }"
          :class="[
              {'is-bubble': type === 'bubble'},
              {'is-line': type === 'line'}
-         ]">
+         ]"
+         @click="loadingClick">
 
-        <div class="content" :class="{'small': small}">
+        <div class="content">
 
             <div class="circle">
                 <i class="fa fa-spin"
@@ -34,12 +32,17 @@
           return {
               content: '',
               type: 'bubble',
-              fullScreen: true,
               small: false
           }
         },
+        methods: {
+            loadingClick(e) {
+                console.log(e)
+                e.preventDefault()
+            }
+        },
         beforeCreate() {
-            this.$EventBus.$emit('loadingClose', this)
+            this.$EventBus.isLoading = this
         },
 
 
@@ -48,7 +51,7 @@
 
 <style scoped>
     .loading_container{
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
@@ -67,13 +70,6 @@
         width: 100%;
         display: inline-block;
     }
-    .content.small .circle i{
-        font-size: 13px;
-    }
-    .content.small .txt{
-        padding-top: 3px;
-        font-size: 12px;
-    }
     .circle{
         margin: 0 auto;
         display: flex;
@@ -81,7 +77,7 @@
         align-items: center;
     }
     .circle i{
-        font-size: 22px;
+        font-size: 27px;
         color: #0baa0b;
     }
     .txt{

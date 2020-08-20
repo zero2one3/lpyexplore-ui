@@ -11,27 +11,11 @@ export default function (Vue) {
             console.error('Please enter an object as a parameter')
             return;
         }
-        let {content = '', type = 'bubble', location = document.getElementById('app')} = option
-
+        let {content = '', type = 'bubble'} = option
         loading.content = content
         loading.type = type
 
-        if(location !== document.getElementById('app')) {
-            loading.fullScreen = false
-        }
-
-        let element = location
-
-        //适配
-        let width = element.clientWidth
-        let height = element.clientHeight
-        let min = height
-        if(width < height) {
-            min = width
-        }
-        if(min <= 25) {
-            loading.small = true
-        }
+        let element = document.querySelector('#app')
 
         //挂载
         loading.$mount()

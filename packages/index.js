@@ -46,6 +46,7 @@ const install = function (Vue) {
     //lp-confirm组件注册
     lp_dialog(Vue)
 
+    console.log(lp_loading)
     //lp-loading组件注册
     lp_loading(Vue)
 

@@ -20,14 +20,14 @@
         <i class="fa fa-times clear"
            :class="[{'clear-hover': !disabled}, {'disabled': disabled}]"
            v-if="clearable && value"
-           @click="clearValue">
-        </i>
+           @click="clearValue"/>
+
 
         <i class="fa fa-eye-slash showPassword"
            :class="[{'show-hover': !disabled}, {'disabled': disabled}]"
            v-else-if="showPassword && value"
-           @click="showPass">
-        </i>
+           @click="showPass"/>
+
     </div>
 </template>
 

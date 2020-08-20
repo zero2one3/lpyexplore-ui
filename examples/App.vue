@@ -136,6 +136,9 @@
                  type="danger"
                  @click="fullScreenLoading">全屏加载
       </lp-button>
+
+      <lp-button v-loading>嘿嘿</lp-button>
+
     </div>
 
 
@@ -288,27 +291,19 @@
                 content: '评论成功',
               })
             },
-            loadingClick() {
+            loadingClick(e) {
 
-              let ret = this.$loading()
+              this.$loading({
+                type: 'line',
+                location: e
+              })
 
-              this.$confirm({
-                content: '确定关闭加载动画吗？',
-                title: '提示'
-              })
-              .then(() => {
-                ret.close()
-              })
-              .catch(() => {
-                this.loadingDisabled = true
-              })
 
             },
-          fullScreenLoading(e) {
+          fullScreenLoading() {
               this.$loading({
                 content: '加载中',
                 type: 'line',
-                location: e.target
               })
           },
 
