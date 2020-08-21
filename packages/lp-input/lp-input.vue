@@ -32,6 +32,7 @@
 </template>
 
 <script>
+    import debounce from "../tools/optimize/debounce";
     export default {
         name: "lp-input",
         props: {
@@ -71,14 +72,15 @@
                 type: String,
                 default: 'middle'
             }
-
-
         },
         data() {
             return {
                 isFocus: this.focus,
                 isShow: false,
-                passwordVisible: false
+                passwordVisible: false,
+                input: function(e) {
+                    this.$emit('input', e.target.value)
+                }
             }
         },
         methods: {
@@ -91,7 +93,7 @@
                 this.$emit('blur')
             },
             handleInput(e) {
-                this.$emit('input', e.target.value)
+                debounce(this.input(e))()
             },
             handleChange() {
                 this.$emit('change')

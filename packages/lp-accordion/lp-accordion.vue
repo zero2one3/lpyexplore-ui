@@ -5,12 +5,21 @@
              :key="index"
              class="each_box">
 
-            <div class="ac_title" :style="{'height': titleHeight, 'lineHeight': titleHeight, 'background': titleBg}">
-                <div :style="{'fontSize': TfontSize}" class="title">{{item.title}}</div>
+            <div class="ac_title"
+                 :style="{'height': titleHeight, 'lineHeight': titleHeight, 'background': titleBg}"
+                 @click="titleClick(index)">
+
+                <div :style="{'fontSize': TfontSize}"
+                     class="title">
+                    {{item.title}}
+                </div>
+
                 <div class="icon-box">
-                    <i class="icon fa fa-angle-right" v-if="hasIcon"
+                    <i class="icon fa fa-angle-right"
+                       v-if="hasIcon"
                        :style="{'transform': current_title == index? 'rotate(90deg)': ''}"/>
                 </div>
+
             </div>
 
             <ul class="ac_plate"
@@ -79,14 +88,18 @@
                 default: '#ebebeb'
             }
         },
-        mounted() {
-            //绑定标题的点击事件
-            let ac_title = document.querySelectorAll('.ac_title')
-            for(let i=0; i< ac_title.length; i++) {
-                ac_title[i].onclick = () => {
+        methods: {
+            titleClick(i) {
+                i = Number(i)
+                if(i === this.current_title) {
+                    this.current_title = -1
+                }
+                else {
                     this.current_title = i
                 }
             }
+        },
+        mounted() {
 
             //给a标签附上链接
             let ac_plate = document.querySelectorAll('.ac_plate')
@@ -157,7 +170,7 @@
         overflow: hidden;
         width: 100%;
         max-height: 0;
-        transition: max-height .2s;
+        transition: max-height .3s;
     }
     .ac_plate li{
         height: 50px;
@@ -179,8 +192,7 @@
         color: #666;
     }
     .is-show{
-        max-height: 100em;
-        transition: max-height 1s;
+        max-height: 100px;
     }
 
 </style>
