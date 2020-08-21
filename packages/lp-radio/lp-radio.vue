@@ -118,7 +118,7 @@
     .circle{
         color: #c9c6c6;
     }
-    .circle:hover{
+    .radio-group:not(.disabled) .circle:hover{
         color: #3da3dc;
     }
     .circle-selected{

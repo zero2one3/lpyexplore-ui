@@ -137,7 +137,6 @@
                  @click="fullScreenLoading">全屏加载
       </lp-button>
 
-      <lp-button v-loading>嘿嘿</lp-button>
 
     </div>
 
@@ -156,17 +155,7 @@
 
     <!--      lp-input组件        -->
     <div id="lp-input" style="margin-top: 20px">
-      <lp-input :disabled="false"
-                v-model="lpy"
-                :clearable="true"
-                size="big">
-      </lp-input>
-
-      <lp-input v-model="lpy"
-                type="password"
-                :showPassword="true"
-                style="margin-top: 20px">
-      </lp-input>
+      <lp-input v-model="lpy" clearable/>
     </div>
 
 
@@ -291,14 +280,10 @@
                 content: '评论成功',
               })
             },
-            loadingClick(e) {
-
+            loadingClick() {
               this.$loading({
                 type: 'line',
-                location: e
               })
-
-
             },
           fullScreenLoading() {
               this.$loading({
