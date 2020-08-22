@@ -115,11 +115,13 @@
     <!--      lp-rate组件        -->
     <div id="lp-rate" style="margin-top: 20px">
       <lp-rate textType="grade"
-               :rate="3"
+               :value="3"
                :disabled="isDisabled"
-               @change="change">
+               @change="change"/>
+      <lp-rate textType="number" v-model="tryValue"/>
 
-      </lp-rate>
+      <lp-rate :textType="['a','b','c','d','e']" :color="['red', 'pink', 'blue']" :value="3"/>
+      <lp-rate icon="face" :color="['red', 'pink', 'blue']" v-model="tryValue"/>
     </div>
 
 
@@ -207,6 +209,7 @@
                 picked: '1',
                 which: '',
                 lpy: '哈哈',
+                tryValue: -1
 
 
             }
