@@ -145,12 +145,12 @@
 
     <!--      lp-tabs组件        -->
     <div id="lp-tabs" style="margin-top: 20px">
-      <lp-tabs v-model="tryTabs">
-        <div slot="content0" class="contents">首页内容</div>
-        <div slot="content1" class="contents">文章信息内容</div>
-        <div slot="content2" class="contents">用户评论内容</div>
-        <div slot="content3" class="contents">联系我们内容</div>
-        <div slot="content4" class="contents">官方合作微信群内容</div>
+      <lp-tabs v-model="tryTabs" type="card">
+        <div slot="content0">首页内容1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</div>
+        <div slot="content1">文章信息内容</div>
+        <div slot="content2">用户评论内容</div>
+        <div slot="content3">联系我们内容</div>
+        <div slot="content4">官方合作微信群内容</div>
       </lp-tabs>
     </div>
 

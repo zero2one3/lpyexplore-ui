@@ -76,6 +76,7 @@
     .lp-tabs-container{
         display: inline-block;
         width: 100%;
+        padding-bottom: 15px;
     }
     .lp-tabs-container.card{
         border: 1px solid #e1e1e1;
@@ -132,6 +133,8 @@
     .lp-tabs-contents-each-content{
         display: none;
         padding-left: 15px;
+        word-wrap: break-word;
+        word-break: break-all;
     }
     .lp-tabs-contents-each-content.active-content{
         display: block;
