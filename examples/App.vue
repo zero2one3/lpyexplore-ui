@@ -145,7 +145,7 @@
 
     <!--      lp-tabs组件        -->
     <div id="lp-tabs" style="margin-top: 20px">
-      <lp-tabs v-model="tryTabs" type="card">
+      <lp-tabs v-model="tryTabs" type="default" :disabled="[0, 1, 2]">
         <div slot="content0">首页内容1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</div>
         <div slot="content1">文章信息内容</div>
         <div slot="content2">用户评论内容</div>

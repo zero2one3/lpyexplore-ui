@@ -4,7 +4,7 @@
         <div class="lp-tabs-titles-container" 
              @click="titleClick">
             <div class="title-slot-container"
-                 :class="[{'active-title': value == index}, `lp-tabs-title${index}`]"
+                 :class="[`lp-tabs-title${index}`, {'active-title': value == index}, {'is-disabled': disabled.indexOf(index) !== -1}]"
                  v-for="(item, index) in titles" 
                  :key="index" 
                  v-html="item"/>
@@ -43,6 +43,12 @@
                 default: function() {
                     return ['首页', '推荐', '购物车', '联系我们', '合作与联系']
                 }
+            },
+            disabled: {
+                type: Array,
+                default: function() {
+                    return []
+                }
             }
         },
         data () {
@@ -54,21 +60,41 @@
         methods: {
             // 计算default样式下 border的位置与宽度
             calculate(i) {
-                let el = this.$el.querySelector(`.lp-tabs-title${i}`)
+                // 判断是否所有tab都被禁用
+                if(this.disabled.length === this.titles.length) {
+                    this.$el.querySelector('.title-border').style.display = 'none'
+                    return;
+                }
+                let index = i
+                let status = false
+                while(!status) {
+                    if(this.disabled.indexOf(index) === -1) {
+                        status = true
+                    }
+                    else {
+                        index ++
+                        if(index > this.titles.length - 1) {
+                            index = 0
+                        }
+                    }
+                }
+                let el = this.$el.querySelector(`.lp-tabs-title${index}`)
                 this.left = el.offsetLeft
                 this.width = el.clientWidth
+                this.$emit('input', index)
             },
             titleClick(e) {
-                let n = e.target.className.match(/lp-tabs-title(\d)/)[1]
-                this.calculate(n)
-                this.$emit('input', n)
-                this.$emit('click', n)
+                let n = Number(e.target.className.match(/lp-tabs-title(\d)/)[1])
+                if(this.disabled.indexOf(n) === -1) {
+                    this.calculate(n)
+                    this.$emit('click', n, this.value)
+                    this.$emit('input', n)
+                }
             }
         },
         mounted () {
             this.calculate(this.value) 
         }
-        
     }
 </script>
 
@@ -140,9 +166,7 @@
         display: block;
         margin-top: 15px;
     }
-
-
-    .disabled{
+    .is-disabled{
         cursor: not-allowed;
         opacity: .3;
         filter:alpha(opacity=30)
