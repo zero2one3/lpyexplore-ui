@@ -145,7 +145,7 @@
 
     <!--      lp-tabs组件        -->
     <div id="lp-tabs" style="margin-top: 20px">
-      <lp-tabs :disabled="[0,4]">
+      <lp-tabs v-model="tryTabs">
         <div slot="content0" class="contents">首页内容</div>
         <div slot="content1" class="contents">文章信息内容</div>
         <div slot="content2" class="contents">用户评论内容</div>
@@ -209,7 +209,8 @@
                 picked: '1',
                 which: '',
                 lpy: '哈哈',
-                tryValue: -1
+                tryValue: -1,
+                tryTabs: 0
 
 
             }
