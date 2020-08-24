@@ -32,7 +32,7 @@
         props: {
             type: {
                 type: String,
-                default: 'card'
+                default: 'default'
             },
             value: {
                 type: [Number, String],
