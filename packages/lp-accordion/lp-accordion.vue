@@ -1,37 +1,26 @@
 <template>
-    <div class="ac_container"
-         :class="[{'ac_container_round': round}]">
-        <div v-for="(item, index) in content"
-             :key="index"
-             class="each_box">
+    <div class="lp-accordion-container">
+        <div class="lp-accordion-item" 
+             :class="[
+                    `lp-accordion-item${index}`, 
+                    {'lp-accordion-item-active': (accordion && index == value) || (!accordion && value.indexOf(index) !== -1)}
+                ]"
+             v-for="(v, index) in number" 
+             :key="index">
 
-            <div class="ac_title"
-                 :style="{'height': titleHeight, 'lineHeight': titleHeight, 'background': titleBg}"
-                 @click="titleClick(index)">
+             <div class="lp-accordion-item-title" 
+                  :class="[`lp-accordion-item-title${index}`]" 
+                  @click="titleClick(index)">
+                 <slot :name="`title${index}`" class="hahaha">{{ `默认标题${index}` }}</slot>
+                 <i class="fa fa-angle-right lp-accordion-item-icon"/>
+             </div>
 
-                <div :style="{'fontSize': TfontSize}"
-                     class="title">
-                    {{item.title}}
-                </div>
-
-                <div class="icon-box">
-                    <i class="icon fa fa-angle-right"
-                       v-if="hasIcon"
-                       :style="{'transform': current_title == index? 'rotate(90deg)': ''}"/>
-                </div>
-
-            </div>
-
-            <ul class="ac_plate"
-                :class="[{'is-show': current_title === index}]"
-                :style="{'fontSize': CfontSize}">
-                <li v-for="(each_li, i) in item.content_list"
-                    :key="i"
-                    :style="{'marginTop':i==0?'':'-1px', 'height': liHeight, 'lineHeight': liHeight}"
-                    :class="[{'bottom_round': round && index == content.length - 1 && i == item.content_list.length - 1}]">
-                    <a>{{each_li}}</a>
-                </li>
-            </ul>
+             <div class="lp-accordion-item-content" 
+                  :class="[`lp-accordion-item-content${index}`]">
+                <div class="lp-accordion-item-inner-content">
+                    <slot :name="`content${index}`">{{ `默认内容${index}` }}</slot>
+                </div>    
+             </div>   
 
         </div>
     </div>
@@ -40,159 +29,77 @@
 <script>
     export default {
         name: "lp-accordion",
-        data() {
-            return {
-                current_title: 0
-            }
-        },
         props: {
-            content: {
-                type: Array,
-                default: function () {
-                    return [
-                        {
-                            title: '请输入标题信息1',
-                            content_list: ['默认内容1', '默认内容2', '默认内容3'],
-                            links:['http://www.baidu.com','http://www.baidu.com','http://www.baidu.com']
-                        },
-                        {title: '请输入标题信息2', content_list: ['默认内容4', '默认内容5', '默认内容6']}
-                    ]
-                }
+            number: {
+                type: Number,
+                default: 5
             },
-            titleHeight: {
-                type: String,
-                default: '50px'
-            },
-            liHeight: {
-                type: String,
-                default: '50px'
-            },
-            TfontSize: {
-                type: String,
-                default: '16px'
-            },
-            CfontSize: {
-                type: String,
-                default: '16px'
-            },
-            hasIcon: {
+            accordion: {
                 type: Boolean,
-                default: false
+                default: true
             },
-            round: {
-                type: Boolean,
-                default: false
-            },
-            titleBg: {
-                type: String,
-                default: '#ebebeb'
+            value: {
+                type: [Array, Number],
+                default: -1
             }
         },
         methods: {
-            titleClick(i) {
-                i = Number(i)
-                if(i === this.current_title) {
-                    this.current_title = -1
-                }
-                else {
-                    this.current_title = i
-                }
-            }
-        },
-        mounted() {
-
-            //给a标签附上链接
-            let ac_plate = document.querySelectorAll('.ac_plate')
-            for(var i=0; i < ac_plate.length; i++) {
-                let li_list = ac_plate[i].querySelectorAll('li')
-                for(var n=0; n < li_list.length; n++) {
-                    if(this.content[i].links && this.content[i].links.length > n) {
-                        li_list[n].children[0].href = this.content[i].links[n]
-                    }
-                    else {
-                        li_list[n].children[0].href = '#'
-                    }
-
+            titleClick(index) {
+                if(this.accordion && this.value === index) {
+                    this.$emit('input', -1)
+                } else if(this.accordion && this.value !== index) {
+                    this.$emit('input', index)
+                } else if(!this.accordion && this.value.indexOf(index) !== -1) {
+                    let i = this.value.indexOf(index)
+                    this.value.splice(i, 1)
+                    this.$emit('input', this.value)
+                } else if(!this.accordion && this.value.indexOf(index) === -1) {
+                    let new_value = this.value
+                    new_value.push(index)
+                    this.$emit('input', new_value)
                 }
             }
-        },
+        } 
     }
 </script>
 
 <style scoped>
-    .ac_container{
-        line-height:0;
-        width: 300px;
+    .lp-accordion-item{
+        border-bottom: 1px solid #eee;
     }
-    .ac_container_round{
-        border-radius: 10px;
-        overflow: hidden;
+    .lp-accordion-item0{
+        border-top: 1px solid #eee;
     }
-    .bottom_round{
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-    }
-    .ac_container, .each_box{
-        display: inline-block;
-        width: 300px;
-    }
-    .ac_title{
+    .lp-accordion-item-title{
+        padding: 15px 0;
+        position: relative;
+        color: #606266;
         cursor: pointer;
-        height: 50px;
-        line-height: 50px;
-        border-bottom: 1px solid #dcd0d0;
-        box-sizing: border-box;
     }
-    .ac_title .title{
-        text-indent: 25px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        width: 90%;
-        float: left;
+    .lp-accordion-item-title:hover{
+        color: rgb(111, 138, 226);
     }
-    .icon-box{
-        width: 10%;
-        height: 100%;
-        float: left;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .lp-accordion-item-active .lp-accordion-item-title{
+        color: rgb(111, 138, 226);
     }
-    .ac_title .icon{
-        transition: all 500ms ease;
+    .lp-accordion-item-icon{
+        position: absolute;
+        right: 10px;
+        transition: all .3s ease;
     }
-    .ac_plate{
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: block;
-        overflow: hidden;
-        width: 100%;
+    .lp-accordion-item-active .lp-accordion-item-icon{
+        transform: rotate(90deg);
+        color: rgb(111, 138, 226);
+    }
+    .lp-accordion-item-content{
         max-height: 0;
-        transition: max-height .3s;
-    }
-    .ac_plate li{
-        height: 50px;
-        line-height: 50px;
-        text-indent: 25px;
-        border: 1px solid #ebebeb;
-        box-sizing: border-box;
-        cursor: pointer;
-    }
-    .ac_plate li:hover a{
-        color: #6495ED;
-    }
-    .ac_plate li a{
-        display: block;
         overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        text-decoration: none;
-        color: #666;
+        transition: max-height .3s ease;
     }
-    .is-show{
-        max-height: 100px;
+    .lp-accordion-item-inner-content{
+        padding: 5px 0 20px;
     }
-
+    .lp-accordion-item-active .lp-accordion-item-content{
+        max-height: 46.8px;
+    }
 </style>

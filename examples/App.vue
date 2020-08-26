@@ -83,13 +83,18 @@
 
     <!--      lp-accordion组件        -->
     <div id="lp-accordion" style="margin-top: 20px">
-      <lp-accordion :content="list"
-                    titleHeight="50px"
-                    :hasIcon="true"
-                    :round="true"
-      >
-
+      <lp-accordion v-model="accordion_try" :accordion="true">
+        <div slot="content0">
+          哈哈哈哈哈哈哈
+        </div>
+        <div slot="content1">
+          呵呵呵呵呵呵
+          <div>
+            黑恶嘿嘿
+          </div>
+        </div>
       </lp-accordion>
+      <div>{{ accordion_try }}</div>
     </div>
 
 
@@ -210,7 +215,8 @@
                 which: '',
                 lpy: '哈哈',
                 tryValue: -1,
-                tryTabs: 0
+                tryTabs: 0,
+                accordion_try: -1
 
 
             }
