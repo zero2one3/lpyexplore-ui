@@ -83,7 +83,7 @@
 
     <!--      lp-accordion组件        -->
     <div id="lp-accordion" style="margin-top: 20px">
-      <lp-accordion v-model="accordion_try" :accordion="true">
+      <lp-accordion v-model="accordion_try" :accordion="false" @change="folding">
         <div slot="content0">
           哈哈哈哈哈哈哈
         </div>
@@ -216,7 +216,7 @@
                 lpy: '哈哈',
                 tryValue: -1,
                 tryTabs: 0,
-                accordion_try: -1
+                accordion_try: [1, 2]
 
 
             }
@@ -301,6 +301,9 @@
                 type: 'line',
               })
           },
+          folding(index, open) {
+            console.log(index, open);
+          }
 
 
 

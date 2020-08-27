@@ -45,19 +45,25 @@
         },
         methods: {
             titleClick(index) {
+                let open = null
                 if(this.accordion && this.value === index) {
+                    open = false
                     this.$emit('input', -1)
                 } else if(this.accordion && this.value !== index) {
+                    open = true
                     this.$emit('input', index)
                 } else if(!this.accordion && this.value.indexOf(index) !== -1) {
+                    open = false
                     let i = this.value.indexOf(index)
                     this.value.splice(i, 1)
                     this.$emit('input', this.value)
                 } else if(!this.accordion && this.value.indexOf(index) === -1) {
+                    open = true
                     let new_value = this.value
                     new_value.push(index)
                     this.$emit('input', new_value)
                 }
+                this.$emit('change', index, open)
             }
         } 
     }
@@ -65,10 +71,10 @@
 
 <style scoped>
     .lp-accordion-item{
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid rgb(230, 228, 228);
     }
     .lp-accordion-item0{
-        border-top: 1px solid #eee;
+        border-top: 1px solid rgb(230, 228, 228);
     }
     .lp-accordion-item-title{
         padding: 15px 0;
