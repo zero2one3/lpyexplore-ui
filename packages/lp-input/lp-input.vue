@@ -7,7 +7,7 @@
                            {'hover': !isFocus && !disabled},
                            {'input-focus': isFocus},
                            {'disabled': disabled},
-                       ]"
+                        ]"
                :placeholder="placeholder"
                @focus="inputFocus"
                @blur="inputBlur"
@@ -111,6 +111,11 @@
                 this.passwordVisible = !this.passwordVisible
 
             }
+        },
+        mounted() {
+            if(this.isFocus) {
+                this.$el.querySelector('input').focus()
+            }
         }
     }
 </script>
@@ -150,6 +155,9 @@
         cursor: not-allowed;
         opacity: .7;
         filter: alpha(opacity=70);
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
     }
     .clear{
         color: #d7d5d5;

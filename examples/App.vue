@@ -162,7 +162,7 @@
 
     <!--      lp-input组件        -->
     <div id="lp-input" style="margin-top: 20px">
-      <lp-input v-model="lpy" clearable/>
+      <lp-input v-model="lpy" clearable focus/>
     </div>
 
 
