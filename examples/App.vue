@@ -73,10 +73,12 @@
     <!--      lp-sliding组件        -->
     <div id="lp-sliding" style="margin-top: 20px">
       <lp-sliding style="margin-bottom: 10px"
-                  @isFull="isFull"
-                  animation>
+                  @loading="isFull"
+                  v-model="isCode" 
+                  :animation='false'>
 
       </lp-sliding>
+      <div>{{ isCode }}</div>
       <lp-button @click="btn" type="primary">提交验证</lp-button>
     </div>
 
@@ -233,15 +235,12 @@
 
             },
             btnClick() {
-                this.disabled = true
+              this.disabled = true
             },
-            isFull(data) {
-              if(data) {
-                this.isCode = true
-              }
-              else {
-                this.isCode = false
-              }
+            isFull(obj) {
+              setTimeout(() => {
+                obj.success()
+              }, 3000)
             },
             btn() {
               if(this.isCode) {

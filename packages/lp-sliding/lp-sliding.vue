@@ -2,7 +2,7 @@
     <div class="lp_sliding_container">
 
         <div class="lp_sliding_bg" :style="bg_width">
-            <span v-show="isFull && iconChange">
+            <span v-show="value && iconChange">
                 <slot name="bg_content">
                     验证成功
                 </slot>
@@ -15,19 +15,16 @@
                      向右滑动滑块完成验证
                 </slot>
             </span>
-
         </div>
 
         <div class="lp_sliding_block"
              @mousedown="dragStart"
-             :style="[move_left, (isSliding || isFull)? block_bg_style: '']">
-            <span v-show="!animation || !isFull">
-                <slot name="block_content">
-                    <i class="fa fa-long-arrow-right"></i>
-                </slot>
+             :style="[move_left, (isSliding || value || isFull)? block_bg_style: '']">
+            <span v-show="!value && !isFull">
+                <i class="fa fa-long-arrow-right"/>
             </span>
-            <i v-show="isFull && !iconChange && animation" class="fa fa-circle-o-notch fa-spin fullIcon"></i>
-            <i v-show="iconChange && animation" class="fa fa-check"></i>
+            <i v-show="animation && isFull && !iconChange" class="fa fa-circle-o-notch fa-spin fullIcon"/>
+            <i v-show="value && iconChange" class="fa fa-check"/>
         </div>
 
     </div>
@@ -38,6 +35,10 @@
         name: "lp-sliding",
         props: {
             animation: {
+                type: Boolean,
+                default: false
+            },
+            value: {
                 type: Boolean,
                 default: false
             }
@@ -57,26 +58,31 @@
                     color: 'white',
                     border: '1px solid rgb(25,145,250)'
                 },
-                iconChange: false
+                iconChange: !this.animation
             }
         },
         methods: {
+            // 拖拽开始
             dragStart(e) {
-                this.startX = e.screenX
-                if(this.animation && !this.iconChange && this.isFull) {
-                    setTimeout(() => {
-                        this.isSliding = true
-                    }, 800)
-                } else {
+                if(!this.value && !this.isFull) {
+                    this.startX = e.screenX
                     this.isSliding = true
                 }
-
+            },
+            // 验证成功
+            LoadingSuccess() {
+                this.iconChange = true
+                this.$emit('input', true)
+            },
+            // 验证失败
+            LoadingErr() {
+                this.$emit('input', false)
             }
         },
         mounted() {
-            let container = document.getElementsByClassName('lp_sliding_container')[0]
-            let sliding = document.getElementsByClassName('lp_sliding_block')[0]
-            let bg = document.getElementsByClassName('lp_sliding_bg')[0]
+            let container = this.$el
+            let sliding = this.$el.getElementsByClassName('lp_sliding_block')[0]
+            let bg = this.$el.getElementsByClassName('lp_sliding_bg')[0]
             //获取元素尺寸
             this.box_width = container.clientWidth
             this.sliding_width = sliding.offsetWidth
@@ -94,9 +100,6 @@
             //处理滑块的滑动事件
             window.onmousemove =  (e) => {
                 if(this.isSliding === true) {
-                    this.iconChange = false
-                    this.isFull = false
-                    this.$emit('isFull', this.isFull)
                     let moveX = e.screenX
                     let now_left = this.slidingX + moveX - this.startX
                     if(now_left <= 0) {
@@ -117,25 +120,25 @@
                         this.slidingX = differ
                         this.startX = differ + 0.5 * this.sliding_width
                         this.bg_width.width = this.box_width + 'px'
-                        this.isFull = true
                         this.isSliding = false
-                        setTimeout(() => {
-                            this.iconChange = true
-                            this.$emit('isFull', this.isFull)
-                        }, 800)
-
-                        setTimeout(() => {
-                            this.$destroy(true)
-                        }, 800)
-
-
+                        this.isFull = true
+                                            
+                        if(this.animation) { 
+                            this.$emit('loading', {
+                                success: this.LoadingSuccess,
+                                err: this.LoadingErr
+                            })
+                        } else {
+                            this.$emit('input', true)
+                        }
+                        
                     }
                 }
             }
             //松开滑块儿处理事件
             window.onmouseup = () => {
                 if(this.isSliding === true) {
-                    if(this.isFull === false) {
+                    if(this.value === false) {
                         sliding.style.transition = 'all 500ms ease'
                         bg.style.transition = 'all 500ms ease'
                         this.bg_width.width = 0
@@ -148,8 +151,6 @@
                     }
                 }
                 this.isSliding = false
-
-
             }
         }
     }
@@ -171,12 +172,13 @@
         background: white;
         color: #45494c;
         border: 1px solid #e4e7eb;
-        box-shadow: 1px 1px 1px rgba(25,145,250,.3), -1px -1px 1px rgba(25,145,250,.3);
+        box-shadow: 1px 1px 3px rgba(177, 169, 169, 0.3), -1px -1px 3px rgba(177, 169, 169, 0.3);
     }
     .lp_sliding_block:hover{
         background: rgb(25,145,250);
         color: white;
         border: 1px solid rgb(25,145,250);
+        box-shadow: 1px 1px 1px rgba(25,145,250,.3), -1px -1px 1px rgba(25,145,250,.3);
     }
     .lp_sliding_bg, .lp_sliding_front{
         position: absolute;
