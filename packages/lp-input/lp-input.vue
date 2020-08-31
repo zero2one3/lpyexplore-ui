@@ -13,6 +13,8 @@
                @blur="inputBlur"
                @input="handleInput"
                @change="handleChange"
+               @compositionstart='compositionstart'
+               @compositionend='compositionend'
                :name="name"
                :disabled="disabled"
                :value="value">
@@ -77,6 +79,7 @@
                 isFocus: this.focus,
                 isShow: false,
                 passwordVisible: false,
+                isVirtual: false
             }
         },
         methods: {
@@ -89,7 +92,10 @@
                 this.$emit('blur')
             },
             handleInput(e) {
-                this.$emit('input', e.target.value)
+                if(!this.isVirtual) {
+                    this.$emit('input', e.target.value)
+                    console.log(11);
+                }     
             },
             handleChange() {
                 this.$emit('change', this.value)
@@ -109,7 +115,13 @@
                     this.isShow = true
                 }
                 this.passwordVisible = !this.passwordVisible
-
+            },
+            compositionstart() {
+                this.isVirtual = true
+            },
+            compositionend(e) {
+                this.isVirtual = false
+                this.$emit('input', e.target.value)
             }
         },
         mounted() {
