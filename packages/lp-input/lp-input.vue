@@ -94,7 +94,6 @@
             handleInput(e) {
                 if(!this.isVirtual) {
                     this.$emit('input', e.target.value)
-                    console.log(11);
                 }     
             },
             handleChange() {
