@@ -76,7 +76,20 @@
             },
             // 验证失败
             LoadingErr() {
+                let sliding = this.$el.getElementsByClassName('lp_sliding_block')[0]
+                let bg = this.$el.getElementsByClassName('lp_sliding_bg')[0]
+                this.isFull = false
+                this.iconChange = false
                 this.$emit('input', false)
+                sliding.style.transition = 'all 500ms ease'
+                bg.style.transition = 'all 500ms ease'
+                this.bg_width.width = 0
+                this.move_left.left = 0
+                this.slidingX = 0
+                setTimeout(function () {
+                    sliding.style.transition = ''
+                    bg.style.transition = ''
+                }, 500)
             }
         },
         mounted() {

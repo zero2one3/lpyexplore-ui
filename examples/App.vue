@@ -75,7 +75,7 @@
       <lp-sliding style="margin-bottom: 10px"
                   @loading="isFull"
                   v-model="isCode" 
-                  :animation='false'>
+                  :animation='true'>
 
       </lp-sliding>
       <div>{{ isCode }}</div>
@@ -239,7 +239,7 @@
             },
             isFull(obj) {
               setTimeout(() => {
-                obj.success()
+                obj.err()
               }, 3000)
             },
             btn() {
