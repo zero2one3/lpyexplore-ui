@@ -119,6 +119,7 @@
             },
             loadingErr() {
                 this.isFull = false
+                this.$emit('input', false)
                 let block = this.$el.querySelector('.lp_sliding_block')
                 let bg = this.$el.querySelector('.lp_sliding_bg')
                 block.style.transition = 'all 500ms ease'
