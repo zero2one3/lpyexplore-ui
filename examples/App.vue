@@ -72,12 +72,18 @@
 
     <!--      lp-sliding组件        -->
     <div id="lp-sliding" style="margin-top: 20px">
-      <lp-sliding style="margin-bottom: 10px"
+
+        <lp-verification style="margin-bottom: 10px"
                   @loading="isFull"
                   v-model="isCode" 
-                  :animation='true'>
+                  :animation='true'
+                  class="sliding11111">
 
-      </lp-sliding>
+        </lp-verification>
+
+        <lp-verification v-model="tryyy" type="click"/>
+
+      
       <div>{{ isCode }}</div>
       <lp-button @click="btn" type="primary">提交验证</lp-button>
     </div>
@@ -218,7 +224,8 @@
                 lpy: '哈哈',
                 tryValue: -1,
                 tryTabs: 0,
-                accordion_try: [1, 2]
+                accordion_try: [1, 2],
+                tryyy: false
 
 
             }
@@ -328,4 +335,5 @@
   #lp-confirm .confirm{
     width: 120px;
   }
+
 </style>

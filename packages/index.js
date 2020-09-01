@@ -1,7 +1,7 @@
 //全局组件
 import lp_button from './lp-button/lp-button'
 import lp_filp from "./lp-filp/lp-filp";
-import lp_sliding from "./lp-sliding/lp-sliding";
+import lp_verification from "./lp-verification/lp-verification";
 import lp_accordion from "./lp-accordion/lp-accordion";
 import lp_switch from "./lp-switch/lp-switch";
 import lp_rate from "./lp-rate/lp-rate";
@@ -22,7 +22,7 @@ import './tools/font-awesome/css/font-awesome.min.css'
 const components = [
     lp_button,
     lp_filp,
-    lp_sliding,
+    lp_verification,
     lp_accordion,
     lp_switch,
     lp_rate,
