@@ -10,10 +10,11 @@ export default function (Vue) {
             console.error('Please enter an object as a parameter')
             return;
         }
-        let {type = 'info', lastTime = 2500, content = '这是一条提示消息'} = option
+        let {type = 'info', lastTime = 2500, content = '这是一条提示消息', location = 'top'} = option
         alert.type = type
         alert.lastTime = lastTime
         alert.content = content
+        alert.location = location
         //挂载
         alert.$mount()
         document.getElementById('app').appendChild(alert.$el)

@@ -1,30 +1,24 @@
 <template>
     <div class="alert_container"
-         :class="{
-            'show': isShow,
-            'hide': !isShow,
-            'enter': isEnter,
-            'leave': isLeave,
-            'success': type == 'success',
-            'info': type == 'info',
-            'err': type == 'err',
-            'warning': type == 'warning'
-         }" >
-
+         :class="[
+            {'show': isShow},
+            {'hide': !isShow},
+            {'enter': isEnter},
+            {'leave': isLeave},
+            type,
+            `location-${location}`
+         ]" 
+         :style="{
+             'top': location === 'top'? `${distance}px`: '',
+             'bottom': location === 'bottom'? `${distance}px`: '',
+         }">
         <div class="content">
 
             <i class="icon fa"
-               :class="[`lp-alert-${type}`]">
-
-            </i>
+               :class="[`lp-alert-${type}`]"/>
 
             <div class="txt"
-                 :class="{
-                    'txt_success': type == 'success',
-                    'txt_info': type == 'info',
-                    'txt_err': type == 'err',
-                    'txt_warning': type == 'warning'
-                 }">
+                 :class="[`txt_${type}`]">
                 {{content}}
             </div>
         </div>
@@ -37,15 +31,36 @@
         name: "lp-alert",
         data() {
             return {
-                type: 'info',              //提示框主题
-                lastTime: 2500,            //持续时间
-                content: '这是一条提示消息',  //提示框文字内容
+                type: 'info',                // 提示框主题
+                lastTime: 2500,              // 持续时间
+                content: '这是一条提示消息',  // 提示框文字内容
+                location: 'top',             // 出现位置
                 isShow: false,
                 isLeave: false,
                 isEnter: false,
+                distance: 0,
+                id: null
+                
+            }
+        },
+        methods: {
+            init() {
+                this.id = Math.random()
+                if(this.$EventBus._alert === undefined) {
+                    this.$EventBus._alert = []
+                }
+                this.$EventBus._alert.push(this.id)
+                this.distance = this.$EventBus._alert.indexOf(this.id) * 70
+            },
+            check() {
+                this.distance = this.$EventBus._alert.indexOf(this.id) * 70
             }
         },
         mounted() {
+            this.init()
+            setInterval(() => {
+                this.check()
+            }, 50);
             let icon = this.$el.querySelector('.icon')
             let name = ''
             switch (this.type) {
@@ -73,6 +88,7 @@
                 this.isEnter = false
                 this.isShow = false
                 this.isLeave = true
+                this.$EventBus._alert.shift()
             }, this.lastTime)
 
         },
@@ -80,37 +96,49 @@
             setTimeout(() => {
                 if(this.isLeave) {
                     this.$destroy(true)
-                    this.$el.parentNode.removeChild(this.$el)
+                    if(this.$el.parentNode !== null) {
+                        this.$el.parentNode.removeChild(this.$el)
+                    }
                 }
-            },1000)
-
+            }, 500)
         }
     }
 </script>
 
 <style scoped>
     .alert_container{
-        width: 350px;
+        width: 400px;
         height: 50px;
         border-radius: 8px;
         position: fixed;
-        left: 50%;
-        top: 0;
         transition: all 500ms ease;
         opacity: 0;
         filter:alpha(opacity=0);
         z-index: 1000;
+    }
+    .alert_container.location-top{
+        left : 50%;
         transform: translate(-50%, 0);
     }
-    .enter{
-        transform: translate(-50%, 35%);
+    .alert_container.location-bottom{
+        left : 50%;
+        transform: translate(-50%, 0);
+    }
+    .alert_container.location-top.enter{
+        transform: translate(-50%, 20px);
+    }
+    .alert_container.location-bottom.enter{
+        transform: translate(-50%, -20px);
     }
     .show{
         opacity: 1;
         filter:alpha(opacity=100);
     }
-    .leave{
+    .alert_container.location-top.leave{
         top: 0;
+    }
+    .alert_container.location-bottom.leave{
+        bottom: 0;
     }
     .hide{
         opacity: 0;
