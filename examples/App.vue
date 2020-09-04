@@ -10,7 +10,7 @@
         <lp-button type="warning" style="margin-left: 20px" plain>warning</lp-button>
       </div>
       <div style="margin-top: 20px">
-        <lp-button style="margin-left: 20px" round>default</lp-button>
+        <lp-button style="margin-left: 20px" round>default22222222222222</lp-button>
         <lp-button type="success" style="margin-left: 20px" round>success</lp-button>
         <lp-button type="primary" style="margin-left: 20px" round>primary</lp-button>
         <lp-button type="danger" style="margin-left: 20px" round>danger</lp-button>

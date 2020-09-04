@@ -81,7 +81,7 @@
         },
         methods: {
             mouseover(event) {
-                let element = event.toElement
+                let element = event.target
                 if(element.nodeName != 'I') return;
                 this.currentStar = Number(element.className.match(/icon(\d)/)[1])
             },
@@ -89,7 +89,7 @@
                 this.currentStar = this.value
             },
             starClick(event) {
-                let element = event.toElement
+                let element = event.target
                 if(element.nodeName != 'I') return;
                 this.currentStar = Number(element.className.match(/icon(\d)/)[1])
                 this.$emit('input', this.currentStar)

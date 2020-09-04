@@ -132,7 +132,9 @@
                 }, 500)
             },
             cClick() {
-                this.$emit('input', true)
+                if(this.type === 'click') {
+                    this.$emit('input', true)
+                }
             }
         },
         mounted() {

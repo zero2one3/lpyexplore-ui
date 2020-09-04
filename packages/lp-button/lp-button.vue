@@ -10,15 +10,13 @@
                 {'is-loading': loading}
             ]"
             @click="btnClick">
-        <span v-show="loading" class="is-loading">
+        <span v-if="loading" class="is-loading">
             <i class="fa fa-spinner fa-spin"/>
             <span style="margin-left: 5px" v-show="loading && !circle">加载中</span>
         </span>
         <span v-show="!loading">
             <slot>{{ circle? '查': 'lp-button' }}</slot>
         </span>
-
-
     </button>
 
 </template>
@@ -59,15 +57,13 @@
                 this.$emit('click', this.$el)
             }
         }
-
-
     }
 </script>
 
 <style scoped>
     .lp-button-container{
         cursor: pointer;
-        width: 80px;
+        /* width: 80px; */
         height: 45px;
         border-radius: 5px;
         border: 1px solid #d9d3d3;
@@ -81,14 +77,14 @@
         -ms-user-select: none;
         -moz-user-select: none;
         text-align: center;
-        position: relative;
+        padding: 0 20px;
     }
 
-    .lp-button-container:not(.is-disabled):not(.is-loading):hover{
+    .lp-button-:not(.is-disabled):not(.is-loading):hover{
         background: rgba(162, 222, 252, 0.5);
         color: #1292d9;
     }
-    .lp-button-container:not(.is-disabled):not(.is-loading):active{
+    .lp-button-:not(.is-disabled):not(.is-loading):active{
         border: 1px solid #3e9fd4;
     }
 
@@ -149,11 +145,11 @@
     }
 
     /*  -------------plain---------------  */
-    .lp-button-container.is-plain:not(.is-disabled):not(.is-loading):hover{
+    .lp-button-.is-plain:not(.is-disabled):not(.is-loading):hover{
         background: white;
         border: 1px solid #3e9fd4;
     }
-    .lp-button-container.is-plain:not(.is-disabled):not(.is-loading):active{
+    .lp-button-.is-plain:not(.is-disabled):not(.is-loading):active{
         border: 1px solid #3283ac;
         color: #3283ac;
     }
@@ -223,6 +219,7 @@
     .lp-button-container.is-circle{
         border-radius: 50%;
         width: 45px;
+        padding: 0;
     }
 
     /*  ------------- disabled / loading ---------------  */

@@ -116,11 +116,7 @@
         filter:alpha(opacity=0);
         z-index: 1000;
     }
-    .alert_container.location-top{
-        left : 50%;
-        transform: translate(-50%, 0);
-    }
-    .alert_container.location-bottom{
+    .alert_container.location-top, .alert_container.location-bottom{
         left : 50%;
         transform: translate(-50%, 0);
     }
